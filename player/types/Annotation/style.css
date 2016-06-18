@@ -1,0 +1,254 @@
+/* Timeline Element */
+
+#AnnotationTimeline .timelineElement {
+	position: absolute;
+	height: 100%;
+	background: rgba(160, 163, 163, .6);
+	pointer-events: all;
+	-moz-transition-duration: 0.2s;
+    -moz-transition-property: bottom;
+	-webkit-transition-duration: 0.2s;
+    -webkit-transition-property: bottom;
+    -o-transition-duration: 0.2s;
+    -o-transition-property: bottom;
+	transition-duration: 0.2s;
+    transition-property: bottom;
+}
+
+#AnnotationTimeline .timelineElement.active {
+	background: rgba(160, 163, 163, 1);
+}
+
+#AnnotationTimeline .timelineElement.highlighted {
+	background: #f8f8f8 !important;
+	z-index: 100000;
+}
+
+#AnnotationTimeline.editable .timelineElement {
+	background-color: rgba(160, 170, 175, 0.8);
+}
+
+#AnnotationTimeline .timelineElement.brushed {
+	background: #cad4d9;
+}
+
+#AnnotationTimeline .timelineElement.ui-draggable:hover {
+	cursor: move;
+}
+
+#AnnotationTimeline .timelineElement.ui-resizable .ui-resizable-handle {
+	position: absolute;
+	top: -2px;
+	width: 3px;
+	height: 100%;
+	background-color: #fff;
+	border: 2px solid #000;
+	border-radius: 3px;
+	display: none;
+}
+
+#AnnotationTimeline .timelineElement.ui-resizable .ui-resizable-handle:hover {
+	background-color: #fff;
+}
+
+#AnnotationTimeline .timelineElement.ui-resizable .ui-resizable-handle.ui-resizable-ne {
+	top: -2px;
+	right: -2px;
+	cursor: ne-resize;
+}
+
+#AnnotationTimeline .timelineElement.ui-resizable .ui-resizable-handle.ui-resizable-nw {
+	top: -2px;
+	left: -2px;
+	cursor: nw-resize;
+}
+
+#AnnotationTimeline .timelineElement.ui-resizable .ui-resizable-handle.ui-resizable-se {
+	bottom: -2px;
+	right: -2px;
+	cursor: se-resize;
+}
+
+#AnnotationTimeline .timelineElement.ui-resizable .ui-resizable-handle.ui-resizable-sw {
+	bottom: -2px;
+	left: -2px;
+	cursor: sw-resize;
+}
+
+#AnnotationTimeline .timelineElement.ui-resizable:hover .ui-resizable-handle {
+	display: block;
+}
+
+/* Tile Element */
+
+#AnnotationTiles .tileElement {
+	float: left;
+	position: relative;
+	width: 34px;
+	height: 29px;
+	margin: 3px 3px 3px 0;
+	background-color: rgba(255,255,255,.3);
+	background-size: 25px auto;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#AnnotationTiles .tileElement:hover, #VideolinkTiles .tileElement.brushed {
+	background-color: rgba(255,255,255,.4);
+}
+
+#AnnotationTiles .tileElement.active {
+	background-color: rgba(255,255,255,.5);
+}
+
+#AnnotationTiles .tileElement.open {
+	background-color: #fff !important;
+}
+
+/* Content Element */
+
+#AnnotationContainer #AnnotationSlider .annotationElement {
+	float: left;
+	position: relative;
+	top: 0;
+	height: 100%;
+	width: 800px;
+	margin-right: 9px;
+	background-color: #333;
+	opacity: 0;
+	transition-property: opacity;
+	transition-duration: 500ms;
+	-moz-transition-property: opacity;
+	-moz-transition-duration: 500ms;
+	-webkit-transition-property: opacity;
+	-webkit-transition-duration: 500ms;
+	-o-transition-property: opacity;
+	-o-transition-duration: 500ms;
+}
+
+#AnnotationContainer #AnnotationSlider .annotationElement.previous, #AnnotationContainer #AnnotationSlider .annotationElement.next {
+	opacity: .1;
+	pointer-events: none;
+}
+
+#AnnotationContainer #AnnotationSlider .annotationElement.open {
+	opacity: 1;
+	outline: 2px solid #fff;
+}
+
+/* Preview Element */
+
+#AnnotationPreviewContainer .previewElement {
+	display: none;
+}
+
+#AnnotationPreviewContainer .previewElement.active {
+	display: block;
+}
+
+/* Compare Timeline Element */
+
+#TimelineList .userTimelineWrapper {
+	margin-top: 20px;
+}
+
+#TimelineList .userLabel {
+	font-weight: 300;
+	margin-bottom: 2px;
+}
+
+#TimelineList .userLabel .userIcon {
+	background-image: url("icons/user.png");
+    background-position: -4px center;
+    background-size: 22px auto;
+    float: left;
+    height: 20px;
+    width: 18px;
+}
+
+#TimelineList .userTimeline .compareTimelineElement {
+	position: absolute;
+	height: 20px;
+	background: #888;
+	opacity: .3;
+}
+
+#TimelineList .userTimeline .compareTimelineElement .previewWrapper, body > .compareTimelineElement .previewWrapper {
+	background: none repeat scroll 0 0 #3F4759;
+	box-shadow: 0 0 1px 3px #222222;
+	height: 70px;
+	left: 50%;
+	margin-left: -50px;
+	position: absolute;
+	top: -85px;
+	width: 100px;
+	z-index: 2;
+	display: none;
+}
+
+#TimelineList .userTimeline .compareTimelineElement:hover .previewWrapper {
+	display: block;
+}
+
+#TimelineList .userTimeline .compareTimelineElement .previewWrapper:after, body > .compareTimelineElement .previewWrapper:after {
+	position: absolute;
+	bottom: -14px;
+	left: 50%;
+	margin-left: -10px;
+	border-top: 10px solid #3F4759;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	content: '';
+	font-weight: 300;
+}
+
+#TimelineList .userTimeline .compareTimelineElement .previewWrapper .resourceThumb, body > .compareTimelineElement .previewWrapper .resourceThumb {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	cursor: pointer;
+	background-color: rgba(255, 255, 255, 0.5);
+	background-size: 130% auto;
+	background-repeat: no-repeat;
+	background-position: top center;
+	text-align: center;
+	outline: 4px solid #3F4759;
+}
+
+#TimelineList .userTimeline .compareTimelineElement .previewWrapper .resourceThumb .resourceTitle, body > .compareTimelineElement .previewWrapper .resourceThumb .resourceTitle {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+	background-color: rgba(60, 73, 94, 0.8);
+	font-size: 11px;
+	padding: 3px;
+	color: #E2EDF8;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+#TimelineList .userTimeline .compareTimelineElement .previewWrapper .resourceThumb .resourceOverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: transparent;
+}
+
+
+#TimelineList .userTimeline .compareTimelineElement .previewWrapper .resourceOverlay .resourceIcon, body > .compareTimelineElement .previewWrapper .resourceOverlay .resourceIcon {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	width: 25px;
+	height: auto;
+}
+
+#TimelineList .userTimeline .compareTimelineElement:hover {
+	opacity: 1;
+	cursor: move;
+}

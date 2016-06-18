@@ -1,0 +1,23 @@
+.resourceDetail[data-type="vimeo"] {
+	
+}
+
+.resourceThumb[data-type="vimeo"] {
+	background-image: url("icons/resourceThumb.png");
+}
+
+.resourceThumb[data-type="vimeo"] .resourceOverlay .resourceIcon {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Annotation Tile */
+
+.tileElement[data-type="vimeo"] {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Edit Vimeo Overlay Properties */
+
+#EditPropertiesContainer .propertiesTypeIcon[data-type="vimeo"] {
+	background-image: url("icons/resourceIcon.png");
+}

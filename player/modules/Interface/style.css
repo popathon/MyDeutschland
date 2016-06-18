@@ -1,0 +1,28 @@
+#MainContainer {
+	background-color: #2F323A;
+    left: 0;
+    margin-left: 0;
+    position: relative;
+    top: 40px;
+    height: 300px;
+	-webkit-transition: margin-left 200ms linear; /* Firefox */
+	-moz-transition: margin-left 200ms linear; /* WebKit */
+	-o-transition: margin-left 200ms linear; /* Opera */
+	transition: margin-left 200ms linear; /* Standard */
+}
+
+
+#MainContainer.sidebarOpen {
+	margin-left: 200px;
+}
+
+#MainContainer.inFullscreen {
+	width: 100%;
+	top: 0px;
+}
+
+#MainContainer.editActive {
+	border-top: 1px solid #999;
+}
+
+

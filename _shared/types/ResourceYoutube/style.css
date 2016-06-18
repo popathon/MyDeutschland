@@ -1,0 +1,19 @@
+.resourceDetail[data-type="youtube"] {
+	background-image: url("icons/resourceThumb.png");
+}
+
+.resourceThumb[data-type="youtube"] .resourceOverlay .resourceIcon {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Annotation Tile */
+
+.tileElement[data-type="youtube"] {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Edit Youtube Overlay Properties */
+
+#EditPropertiesContainer .propertiesTypeIcon[data-type="youtube"] {
+	background-image: url("icons/resourceIcon.png");
+}

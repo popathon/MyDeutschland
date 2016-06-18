@@ -1,0 +1,173 @@
+/* Timeline Element */
+
+#VideolinkTimeline .timelineElement {
+	position: absolute;
+	height: 100%;
+	background: rgba(160, 163, 163, .6);
+	pointer-events: all;
+	-moz-transition-duration: 0.2s;
+    -moz-transition-property: bottom;
+	-webkit-transition-duration: 0.2s;
+    -webkit-transition-property: bottom;
+    -o-transition-duration: 0.2s;
+    -o-transition-property: bottom;
+	transition-duration: 0.2s;
+    transition-property: bottom;
+}
+
+#VideolinkTimeline .timelineElement.active {
+	background: rgba(160, 163, 163, 1);
+}
+
+#VideolinkTimeline .timelineElement.highlighted {
+	background: #f8f8f8 !important;
+	z-index: 100000;
+}
+
+#VideolinkTimeline.editable .timelineElement {
+	background-color: rgba(160, 170, 175, 0.8);
+}
+
+#VideolinkTimeline .timelineElement.brushed {
+	background: #cad4d9;
+}
+
+#VideolinkTimeline .timelineElement.ui-draggable:hover {
+	cursor: move;
+}
+
+#VideolinkTimeline .timelineElement.ui-resizable .ui-resizable-handle {
+	position: absolute;
+	top: -2px;
+	width: 3px;
+	height: 100%;
+	background-color: #fff;
+	border: 2px solid #000;
+	border-radius: 3px;
+	display: none;
+}
+
+#VideolinkTimeline .timelineElement.ui-resizable .ui-resizable-handle:hover {
+	background-color: #fff;
+}
+
+#VideolinkTimeline .timelineElement.ui-resizable .ui-resizable-handle.ui-resizable-ne {
+	top: -2px;
+	right: -2px;
+	cursor: ne-resize;
+}
+
+#VideolinkTimeline .timelineElement.ui-resizable .ui-resizable-handle.ui-resizable-nw {
+	top: -2px;
+	left: -2px;
+	cursor: nw-resize;
+}
+
+#VideolinkTimeline .timelineElement.ui-resizable .ui-resizable-handle.ui-resizable-se {
+	bottom: -2px;
+	right: -2px;
+	cursor: se-resize;
+}
+
+#VideolinkTimeline .timelineElement.ui-resizable .ui-resizable-handle.ui-resizable-sw {
+	bottom: -2px;
+	left: -2px;
+	cursor: sw-resize;
+}
+
+#VideolinkTimeline .timelineElement.ui-resizable:hover .ui-resizable-handle {
+	display: block;
+}
+
+/* Tile Element */
+
+#VideolinkTiles .tileElement {
+	float: left;
+	position: relative;
+	width: 44px;
+	height: 29px;
+	margin: 3px 3px 3px 0;
+	background-color: rgba(255,255,255,.3);
+	background-size: 25px auto;
+	background-position: center;
+	background-repeat: no-repeat;
+	background-image: url("icons/videolinkTile.png");
+}
+
+#VideolinkTiles .tileElement:hover, #VideolinkTiles .tileElement.brushed {
+	background-color: rgba(255,255,255,.4);
+}
+
+#VideolinkTiles .tileElement.active {
+	background-color: rgba(255,255,255,.5);
+}
+
+#VideolinkTiles .tileElement.open {
+	background-color: #fff;
+}
+
+/* Content Element */
+
+#VideolinkContainer .videolinkElement {
+	background: #2F323A;
+    border: 1px solid #fff;
+    opacity: 1;
+    height: 92%;
+    left: 15%;
+    position: absolute;
+    top: 4%;
+    width: 70%;
+    z-index: 1;
+    transition-property: opacity;
+	transition-duration: 500ms;
+	-moz-transition-property: opacity;
+	-moz-transition-duration: 500ms;
+	-webkit-transition-property: opacity;
+	-webkit-transition-duration: 500ms;
+	-o-transition-property: opacity;
+	-o-transition-duration: 500ms;
+}
+
+
+#VideolinkContainer .videolinkElement.open {
+	opacity: 1;
+	z-index: 2;
+}
+
+#VideolinkContainer .videolinkElement iframe {
+	width: 100%;
+	height: 100%;
+}
+
+#VideolinkContainer .videolinkElement .videolinkAnchor {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	height: 40px;
+	padding: 0 10px;
+	background-color: #f8f8f8;
+	line-height: 38px;
+	color: #2F323A;
+	text-decoration: none;
+}
+
+#VideolinkContainer .videolinkElement .videolinkAnchor:hover {
+	text-decoration: underline;
+}
+
+/* Edit Videolink Properties */
+
+#EditPropertiesContainer .propertiesTypeIcon[data-type="videolink"] {
+	background-image: url("icons/videolinkTile.png");
+}
+
+#EditPropertiesContainer #VideolinkHref {
+	width: 300px;
+	border-color: transparent;
+	background-color: transparent;
+}
+
+#EditPropertiesContainer #VideolinkHref:hover, #EditPropertiesContainer #VideolinkHref:focus {
+	border-color: inherit;
+	background-color: inherit;
+}

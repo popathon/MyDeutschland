@@ -1,0 +1,36 @@
+.resourceDetail[data-type="video"] {
+	background: #000;
+}
+
+.resourceThumb[data-type="video"] {
+	background-image: url("icons/resourceThumb.png");
+}
+
+.resourceThumb[data-type="video"] .resourceOverlay .resourceIcon {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Annotation Tile */
+
+.tileElement[data-type="video"] {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Edit Video Overlay Properties */
+
+#EditPropertiesContainer .propertiesTypeIcon[data-type="video"] {
+	background-image: url("icons/resourceIcon.png");
+}
+
+#EditPropertiesContainer #SyncedRadio {
+	margin: 10px 0;
+}
+
+#EditPropertiesContainer #SyncedRadio .ui-button {
+	border: 1px solid rgba(47, 50, 58, .5);
+}
+
+#EditPropertiesContainer #SyncedRadio .ui-button.ui-state-active {
+	background: rgba(47, 50, 58, .2);
+	box-shadow: 0 0 2px 1px #888 inset;
+}

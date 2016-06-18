@@ -1,0 +1,823 @@
+path {
+    stroke-width: 2;
+    stroke-dasharray: 8, 4;
+}
+
+#ViewVideo {
+    display: none;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#ViewVideo.active {
+    display: block;
+}
+
+#MainContainer.editActive #ViewVideo {
+    border: 10px solid #f8f8f8;
+    box-sizing: border-box;
+}
+
+#ViewVideo #SlideArea {
+    margin-top: 0px;
+    transition-property: margin-top;
+    transition-duration: 200ms;
+    -moz-transition-property: margin-top;
+    -moz-transition-duration: 200ms;
+    -webkit-transition-property: margin-top;
+    -webkit-transition-duration: 200ms;
+    -o-transition-property: margin-top;
+    -o-transition-duration: 200ms;
+}
+
+#MainContainer.editActive #ViewVideo #SlideArea svg {
+    margin-top: -10px;
+    margin-left: -10px;
+}
+
+/* Player Container */
+
+#PlayerContainer {
+    position: relative;
+    width: 100%;
+    height: 500px;
+    margin: 30px 0;
+    z-index: 1;
+}
+
+#PlayerContainer.scrollFix {
+    pointer-events: none;
+}
+
+/* Progress Bar */
+
+#PlayerContainer #PlayerProgress {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    z-index: 1;
+}
+
+#PlayerContainer #PlayerProgress .ui-slider-handle {
+    position: absolute;
+    top: 0;
+    margin-left: -1px;
+    height: 100%;
+    width: 2px;
+    background: #cfcfcf;
+    outline: none;
+    opacity: .8;
+}
+
+#PlayerContainer #PlayerProgress .ui-slider-handle.small {
+    top: 0;
+    height: 100%;
+}
+
+#PlayerContainer #PlayerProgress .ui-slider-range {
+    height: 100%;
+    background: rgba(200, 200, 200, 0.2);
+}
+
+#PlayerContainer #PlayerProgress:hover .ui-slider-handle {
+    opacity: 1;
+}
+
+#PlayerContainer #PlayerProgress .ui-slider-handle:before {
+    content: "";
+    position: absolute;
+    left: -2px;
+    width: 6px;
+    height: 6px;
+    bottom: 0px;
+    background: #cfcfcf;
+    z-index: 1;
+}
+
+#PlayerContainer #PlayerProgress .ui-slider-handle:after {
+    content: "";
+    position: absolute;
+    left: -2px;
+    width: 6px;
+    height: 6px;
+    top: 0px;
+    background: #cfcfcf;
+    z-index: 1;
+}
+
+#PlayerContainer #PlayerProgress .ui-slider-handle-circle {
+    position: absolute;
+    left: -6.5px;
+    bottom: 37px;
+    width: 15px;
+    height: 15px;
+    margin-bottom: -15px;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 8px;
+    background: #cfcfcf;
+}
+
+#PlayerContainer #PlayerProgress .ui-slider-handle:hover .ui-slider-handle-circle, #PlayerContainer #PlayerProgress .ui-slider-handle:hover, #PlayerContainer #PlayerProgress .ui-slider-handle:hover:after, #PlayerContainer #PlayerProgress .ui-slider-handle:before {
+    background: #fff;
+}
+
+#PlayerContainer #PlayerProgress .ui-slider-handle-circle-inner {
+    position: absolute;
+    left: 4px;
+    bottom: 4px;
+    width: 7px;
+    height: 7px;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+    background: #2F323A;
+}
+
+#PlayerContainer #PlayerProgress .ui-slider-handle.highlight {
+    opacity: 1;
+    background: #fff;
+}
+
+/* Annotations */
+
+#AnnotationTiles {
+    position: relative;
+    width: 100%;
+    height: 35px;
+    background: #3F4247;
+    transition-property: margin-top;
+    transition-duration: 500ms;
+    -moz-transition-property: margin-top;
+    -moz-transition-duration: 500ms;
+    -webkit-transition-property: margin-top;
+    -webkit-transition-duration: 500ms;
+    -o-transition-property: margin-top;
+    -o-transition-duration: 500ms;
+}
+
+#AnnotationTiles .message {
+    margin: 0 20px;
+    position: relative !important;
+    top: 2px;
+}
+
+#AnnotationContainer {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    background: transparent;
+    z-index: 2;
+    transition-property: margin-top;
+    transition-duration: 500ms;
+    -moz-transition-property: margin-top;
+    -moz-transition-duration: 500ms;
+    -webkit-transition-property: margin-top;
+    -webkit-transition-duration: 500ms;
+    -o-transition-property: margin-top;
+    -o-transition-duration: 500ms;
+}
+
+#AnnotationContainer #AnnotationSlider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 20px 0;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    transition-property: left;
+    transition-duration: 500ms;
+    -moz-transition-property: left;
+    -moz-transition-duration: 500ms;
+    -webkit-transition-property: left;
+    -webkit-transition-duration: 500ms;
+    -o-transition-property: left;
+    -o-transition-duration: 500ms;
+}
+
+#PlayerContainer #AnnotationTimeline {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    background: rgba(93, 96, 101, .3);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Videolinks */
+
+#VideolinkTiles {
+    position: relative;
+    width: 100%;
+    height: 35px;
+    background: #3F4247;
+    transition-property: margin-top;
+    transition-duration: 500ms;
+    -moz-transition-property: margin-top;
+    -moz-transition-duration: 500ms;
+    -webkit-transition-property: margin-top;
+    -webkit-transition-duration: 500ms;
+    -o-transition-property: margin-top;
+    -o-transition-duration: 500ms;
+}
+
+#VideolinkContainer {
+    position: relative;
+    width: 100%;
+    height: 80px;
+    background: transparent;
+    z-index: 2;
+    transition-property: margin-top;
+    transition-duration: 500ms;
+    -moz-transition-property: margin-top;
+    -moz-transition-duration: 500ms;
+    -webkit-transition-property: margin-top;
+    -webkit-transition-duration: 500ms;
+    -o-transition-property: margin-top;
+    -o-transition-duration: 500ms;
+}
+
+#PlayerContainer #VideolinkTimeline {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    background: rgba(93, 96, 101, .3);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Overlays */
+
+#PlayerContainer #OverlayTimeline {
+    position: relative;
+    width: 100%;
+    height: 6px;
+    background: rgba(93, 96, 101, .3);
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Code Snippets */
+
+#PlayerContainer #CodeSnippetTimeline {
+    position: relative;
+    width: 100%;
+    height: 0px;
+    background: #00ff00;
+    z-index: 3;
+    pointer-events: none;
+    overflow: hidden;
+    display: none;
+}
+
+#PlayerContainer #CodeSnippetTimeline.editable {
+    display: block;
+    overflow: visible;
+}
+
+/* Controls */
+
+#PlayerContainer #Controls {
+    position: relative;
+    height: 40px;
+    width: 100%;
+    background: transparent;
+    z-index: 2;
+    pointer-events: none;
+}
+
+#PlayerContainer #Controls .playerControl {
+    float: left;
+    position: relative;
+    height: 40px;
+    width: 40px;
+    border: none;
+    background-color: transparent;
+    background-size: 30px;
+    background-position: center;
+    background-repeat: no-repeat;
+    pointer-events: all;
+    opacity: .9;
+}
+
+#PlayerContainer #Controls .playerControl:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+#PlayerContainer #Controls #LeftControlPanel {
+    float: left;
+}
+
+#PlayerContainer #Controls #RightControlPanel {
+    float: right;
+}
+
+#PlayerContainer #Controls .playerControl#PlayButton {
+    background-image: url("icons/play.png");
+}
+
+#PlayerContainer #Controls .playerControl#PlayButton.playing {
+    background-image: url("icons/pause.png");
+}
+
+#PlayerContainer #Controls .playerControl#SettingsButton {
+    background-image: url("icons/settings.png");
+}
+
+#PlayerContainer #Controls .playerControl#SettingsButton.active {
+    opacity: 1;
+}
+
+#PlayerContainer #Controls .playerControl#SettingsButton #SettingsContainer {
+    background: #2f323a;
+    display: none;
+    height: 144px;
+    position: absolute;
+    right: 4px;
+    font-size: 12px;
+    color: #fff;
+    top: -155px;
+    width: 315px;
+    border: 5px solid #2f323a;
+    box-shadow: 0 0 3px 2px #000;
+    overflow: hidden;
+    cursor: default;
+}
+
+#PlayerContainer #Controls .playerControl#SettingsButton.active #SettingsContainer {
+    display: block;
+}
+
+#PlayerContainer #Controls .playerControl#SettingsButton #SettingsContainer #LayoutSettingsWrapper {
+    float: left;
+    width: 180px;
+    border-right: 5px solid #2f323a;
+}
+
+#PlayerContainer #Controls #SettingsContainer [data-config] {
+    background-color: #959698;
+    color: #333;
+    font-weight: 100;
+    padding-top: 5px;
+    position: relative;
+    text-align: center;
+}
+
+#PlayerContainer #Controls #SettingsContainer [data-config]:hover {
+    background-color: #AFAFAF;
+    cursor: pointer;
+}
+
+#PlayerContainer #Controls #SettingsContainer [data-config].active {
+    background-color: #F8F8F8;
+}
+
+#PlayerContainer #Controls #SettingsContainer [data-config="hv_config_videolinksVisible"] {
+    clear: both;
+    height: 22px;
+}
+
+#PlayerContainer #Controls #SettingsContainer #PlayerWrapper {
+    height: 80px;
+    margin: 5px 0;
+}
+
+#PlayerContainer #Controls #SettingsContainer #PlayerWrapper [data-config="hv_config_overlaysVisible"] {
+    float: left;
+    height: 75px;
+    width: 110px;
+    margin-right: 5px;
+}
+
+#PlayerContainer #Controls #SettingsContainer #PlayerWrapper [data-config="hv_config_annotationPreviewVisible"] {
+    float: left;
+    height: 75px;
+    width: 65px;
+}
+
+#PlayerContainer #Controls #SettingsContainer [data-config="hv_config_annotationsVisible"] {
+    clear: both;
+    height: 22px;
+}
+
+#PlayerContainer #Controls #SettingsContainer [data-config="hv_config_annotationsPosition"] {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    height: 10px;
+    width: 15px;
+    background-color: #555;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-image: url("icons/switchPositions.png");
+}
+
+#PlayerContainer #Controls #SettingsContainer [data-config="hv_config_annotationsPosition"]:hover {
+    background-color: #333;
+}
+
+#PlayerContainer #Controls #SettingsContainer #GenericSettingsWrapper {
+    float: left;
+    height: 50px;
+    margin: 10px;
+    width: 110px;
+}
+
+#PlayerContainer #Controls #SettingsContainer #GenericSettingsWrapper [data-config="hv_config_slidingMode"] {
+    height: 20px;
+    padding-top: 0;
+    background: #f8f8f8;
+}
+
+#PlayerContainer #Controls #SettingsContainer #GenericSettingsWrapper [data-config="hv_config_slidingMode"] .slidingMode {
+    float: left;
+    pointer-events: none;
+    height: 100%;
+    width: 50%;
+    outline: 1px solid #333;
+    background-color: #959698;
+    color: #333;
+}
+
+#PlayerContainer #Controls #SettingsContainer #GenericSettingsWrapper [data-config="hv_config_slidingMode"] .slidingMode[data-value="adjust"] {
+    background-color: #F8F8F8;
+}
+
+#PlayerContainer #Controls #SettingsContainer #GenericSettingsWrapper [data-config="hv_config_slidingMode"].active .slidingMode[data-value="adjust"] {
+    background-color: #959698;
+}
+
+#PlayerContainer #Controls #SettingsContainer #GenericSettingsWrapper [data-config="hv_config_slidingMode"].active .slidingMode[data-value="overlay"] {
+    background-color: #F8F8F8;
+}
+
+#PlayerContainer #Controls .playerControl#CaptionsButton {
+    background-image: url("icons/captions.off.png");
+}
+
+#PlayerContainer #Controls .playerControl#CaptionsButton.active {
+    background-image: url("icons/captions.on.png");
+}
+
+#PlayerContainer #Controls .playerControl#CaptionsButton #CaptionSelectContainer {
+    background: #2f323a;
+    display: none;
+    font-size: 12px;
+    color: #fff;
+    border: 5px solid #2f323a;
+    box-shadow: 0 0 3px 2px #000;
+    height: auto;
+    min-height: 10px;
+    position: absolute;
+    right: 4px;
+    bottom: 43px;
+    width: 90px;
+    cursor: default;
+}
+
+#PlayerContainer #Controls .playerControl#CaptionsButton #CaptionSelectContainer.active {
+    display: block;
+}
+
+#PlayerContainer #Controls .playerControl#CaptionsButton #CaptionSelectContainer .captionSelect {
+    padding: 3px 5px;
+    background-color: #959698;
+    border-bottom: 2px solid #2F323A;
+    color: #333;
+    font-weight: 100;
+}
+
+#PlayerContainer #Controls .playerControl#CaptionsButton #CaptionSelectContainer .captionSelect:hover {
+    background-color: #AFAFAF;
+    cursor: pointer;
+}
+
+#PlayerContainer #Controls .playerControl#CaptionsButton #CaptionSelectContainer .captionSelect.active {
+    background-color: #F8F8F8;
+    cursor: pointer;
+}
+
+#PlayerContainer #Controls .playerControl#VolumeButton {
+    background-image: url("icons/volume.up.png");
+}
+
+#PlayerContainer #Controls .playerControl#VolumeButton.active {
+    background-image: url("icons/volume.off.png");
+}
+
+#PlayerContainer #Controls .playerControl#FullscreenButton {
+    background-image: url("icons/fullscreen.enter.png");
+}
+
+#PlayerContainer #Controls .playerControl#FullscreenButton.active {
+    background-image: url("icons/fullscreen.leave.png");
+}
+
+#PlayerContainer #Controls .playerControl#TimeDisplay {
+    color: #fff;
+    height: 30px;
+    line-height: 16px;
+    padding: 4px 10px;
+    pointer-events: none;
+    width: auto;
+}
+
+#PlayerContainer #Controls .playerControl#TimeDisplay #TotalDuration {
+    color: #acacb3;
+}
+
+/* Hypervideo Container */
+
+#HypervideoContainer {
+    position: relative;
+    height: 460px;
+    background: #000;
+    z-index: 2;
+}
+
+#HypervideoContainer #InfoAreaRight {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 400px;
+    height: 100%;
+}
+
+#HypervideoContainer #InfoAreaRight #AnnotationPreviewContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(100,100,100,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+#HypervideoContainer #InfoAreaRight #EditPropertiesContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+    overflow: auto;
+    background-color: #e0e3e6;
+    background-repeat: no-repeat;
+    background-position: center center;
+    color: #2F323A;
+    border-right: 1px solid #999;
+    display: none;
+}
+
+#HypervideoContainer #InfoAreaRight #EditPropertiesContainer.active {
+    background-color: #F8F8F8;
+}
+
+#HypervideoContainer #InfoAreaRight #EditPropertiesContainer > .message {
+    bottom: 14px;
+    left: 20px;
+    position: absolute;
+    width: 350px;
+}
+
+#EditPropertiesContainer[data-editmode="overlays"] {
+    background-image: url('icons/menuItemOverlays.png');
+}
+
+#EditPropertiesContainer[data-editmode="links"] {
+    background-image: url('icons/menuItemVideolinks.png');
+}
+
+#EditPropertiesContainer[data-editmode="codesnippets"] {
+    background-image: url('icons/menuItemCodeSnippets.png');
+}
+
+#EditPropertiesContainer[data-editmode="annotations"] {
+    background-image: url('icons/menuItemAnnotations.png');
+}
+
+
+/* Video Container */
+
+#HypervideoContainer #VideoContainer {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+    overflow: hidden;
+    transition-property: width;
+    transition-duration: 200ms;
+    transition-timing-function: linear;
+    -moz-transition-property: width;
+    -moz-transition-duration: 200ms;
+    -moz-transition-timing-function: linear;
+    -webkit-transition-property: width;
+    -webkit-transition-duration: 200ms;
+    -webkit-transition-timing-function: linear;
+    -o-transition-property: width;
+    -o-transition-duration: 200ms;
+    -o-transition-timing-function: linear;
+}
+
+#HypervideoContainer #VideoContainer #Hypervideo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: auto;
+    height: 100%;
+    overflow: hidden;
+    transition-property: width, height, margin-top;
+    transition-duration: 200ms;
+    transition-timing-function: linear;
+    -moz-transition-property: width, height, margin-top;
+    -moz-transition-duration: 200ms;
+    -moz-transition-timing-function: linear;
+    -webkit-transition-property: width, height, margin-top;
+    -webkit-transition-duration: 200ms;
+    -webkit-transition-timing-function: linear;
+    -o-transition-property: width, height, margin-top;
+    -o-transition-duration: 200ms;
+    -o-transition-timing-function: linear;
+}
+
+#HypervideoContainer #VideoContainer #Hypervideo video#Video {
+    width: 1920px;
+    height: 1080px;
+    background: #101010;
+    /*
+    transition-property: width, height;
+    transition-duration: 200ms;
+    transition-timing-function: linear;
+    -moz-transition-property: width, height;
+    -moz-transition-duration: 200ms;
+    -moz-transition-timing-function: linear;
+    -webkit-transition-property: width, height;
+    -webkit-transition-duration: 200ms;
+    -webkit-transition-timing-function: linear;
+    -o-transition-property: width, height;
+    -o-transition-duration: 200ms;
+    -o-transition-timing-function: linear;
+    */
+}
+
+#HypervideoContainer #VideoContainer #Hypervideo #OverlayContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+#HypervideoContainer #VideoContainer #Hypervideo #CaptionContainer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background: rgba(0, 0, 0, .3);
+    overflow: hidden;
+}
+
+/* Video UI */
+
+#HypervideoContainer #VideoContainer #ExpandButton {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    visibility: hidden;
+    background: rgba(255, 255, 255, 0.2);
+    z-index: 30;
+}
+
+#HypervideoContainer #VideoContainer:hover #ExpandButton {
+    visibility: visible;
+}
+
+#HypervideoContainer #VideoContainer #ExpandButton #ExpandLabel {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 120px;
+    height: 40px;
+    margin-left: -60px;
+    margin-top: -20px;
+    line-height: 40px;
+    text-align: center;
+    color: #333;
+    background: rgba(255,255,255,0.8);
+}
+
+#HypervideoContainer #VideoContainer #WorkingIndicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60px;
+    height: 60px;
+    margin-top: -30px;
+    margin-left: -30px;
+    display: none;
+}
+
+/* EDITING UI */
+
+#PlayerContainer #AnnotationTimeline.editable, #PlayerContainer #VideolinkTimeline.editable, #PlayerContainer #OverlayTimeline.editable, #PlayerContainer #CodeSnippetTimeline.editable, #PlayerContainer #AudioTimeline.editable {
+    min-height: 20px;
+    height: : 40px;
+    background-color: transparent;
+    box-shadow: 0 0 3px 2px #303030 inset;
+    background-image: url("icons/timelineBackground.png");
+}
+
+#TimelineList .userTimeline {
+    position: relative;
+    height: 20px;
+    background-color: #b5b5bc;
+    box-shadow: 0 0 2px 0px #303030 inset;
+    background-image: url("icons/timelineBackground.png");
+}
+
+
+#PlayerContainer .editable .timelineElement {
+    height: 14px;
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+#PlayerContainer .editable .timelineElement.brushed {
+
+}
+
+#PlayerContainer #CodeSnippetTimeline.editable .timelineElement {
+    width: 20px;
+    margin-left: -10px;
+}
+
+#PlayerContainer #CodeSnippetTimeline.editable .timelineElement:before {
+    border-top: 4px solid rgba(160, 170, 175, 0.8);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    content: "";
+    left: 5px;
+    position: absolute;
+    bottom: -4px;
+    width: 2px;
+}
+
+#PlayerContainer #CodeSnippetTimeline.editable .timelineElement:after {
+    border-bottom: 4px solid rgba(160, 170, 175, 0.8);
+    border-left: 4px solid transparent;
+    border-right: 4px solid transparent;
+    content: "";
+    left: 5px;
+    position: absolute;
+    top: -4px;
+    width: 2px;
+}
+
+#PlayerContainer #CodeSnippetTimeline.editable .timelineElement.brushed:before, #PlayerContainer #CodeSnippetTimeline.editable .timelineElement.brushed:after {
+    border-top-color: rgba(160, 163, 163, 1);
+    border-bottom-color: rgba(160, 163, 163, 1);
+}
+
+#PlayerContainer #CodeSnippetTimeline.editable .timelineElement.highlighted:before, #PlayerContainer #CodeSnippetTimeline.editable .timelineElement.highlighted:after {
+    border-top-color: #f8f8f8 !important;
+    border-bottom-color: #f8f8f8 !important;
+}
+
+#EditingOptions {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    background: #F8F8F8;
+    box-shadow: 0 0 1px 2px #000;
+    z-index: 1;
+    display: none;
+}

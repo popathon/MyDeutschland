@@ -1,0 +1,23 @@
+.resourceDetail[data-type="location"] {
+	background-color: #B5D0D0;
+}
+
+.resourceThumb[data-type="location"] {
+	background-image: url("icons/resourceThumb.png");
+}
+
+.resourceThumb[data-type="location"] .resourceOverlay .resourceIcon {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Annotation Tile */
+
+.tileElement[data-type="location"] {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Edit Location Overlay Properties */
+
+#EditPropertiesContainer .propertiesTypeIcon[data-type="location"] {
+	background-image: url("icons/resourceIcon.png");
+}

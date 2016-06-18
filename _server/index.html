@@ -1,0 +1,1589 @@
+<script type="text/javascript" src="../_lib/jquery/jquery-1.10.1.min.js"></script>
+<script type="text/javascript" src="../_lib/jquery.ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../_lib/jquery.form/jquery.form.min.js"></script>
+<link rel="stylesheet" type="text/css" href="tmp/highlightjs.css">
+<script type="text/javascript" src="tmp/highlightjs.js"></script>
+<style type="text/css">
+	#tabs {
+		padding-top:80px;
+	}
+	.block {
+		border:1px solid gray;
+		padding: 5px;
+		margin:5px;
+		display: none;
+	}
+	.block:hover {
+		background-color: #efefef;
+	}
+	#menu {
+		width:100%;
+		position:fixed;
+		min-height:30px;
+		border:1px solid #7D8893;
+		z-index:2;
+		padding:5px;
+		background-color: #ffffff;
+	}
+	.menuItem {
+		border:1px solid #555555;
+		margin-right:10px;
+		display: inline-block;
+		cursor: pointer;
+		-webkit-touch-callout: none;
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+		margin: 5px;
+	}
+	.menuItem.active {
+		border:1px solid #3e3e3e;
+		background-color: #AFAFAF;
+	}
+	.menuItem:hover {
+		border:1px solid #262626;
+		background-color: #aec0c2;
+	}
+</style>
+<div id="menu"></div>
+<div id="tabs">
+	<div id="tab-3" class="block">
+		<h2>Get Projects</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+
+			parameter:
+					a 		=	"projectsGet"
+					[details 	=	false 	// Optional. boolean. Returns hypervideos too ]
+					[login 		=	false 	// Optional. boolean. Returns login-state for each project as parameter]
+		</pre>
+
+		<button class="getProjects">Get Projects</button>
+		<button class="getProjects" data-details="true">Get Projects with Hypervideos</button><br>
+		<input type="checkbox" name="login" id="getProjectsLogin" value="true">Check for login?
+		<pre id="projects_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$(".getProjects").click(function(e) {
+				e.preventDefault();
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"projectsGet","details":$(this).data("details"), "login":$("#getProjectsLogin:checked").val()},
+					dataType:"text",
+					success: function(ret) {
+						$("#projects_output code").text(ret);
+						hljs.highlightBlock($("#projects_output code")[0]);
+					}
+				})
+			});
+		</script>
+		<br>
+	</div>
+	<div id="tab-2" class="block">
+		<h2>User Get</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+
+			parameter:
+					a 		=	"userGet"
+					projectID 	=	number 	// Required. ID of Project
+					[userID		=	number 	// Optional ID of specific user of Project. If send this will return a Object containing a single User]
+
+			Notice: Passwordhashes will never be part of the response.
+		</pre>
+		<select id="user_project_select" class="project_select" size="10">
+			<option value="" selected disabled>Select a Project</option>
+		</select>
+		<select id="user_select" size="10">
+			<option value="" selected disabled>Select a User of previous selected Project</option>
+		</select>
+
+		<pre id="users_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$("#user_project_select").change(function(e) {
+				e.preventDefault();
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userGet","projectID":$("#user_project_select option:selected").val()},
+					dataType:"text",
+					success: function(ret) {
+						$("#users_output code").text(ret);
+						hljs.highlightBlock($("#users_output code")[0]);
+						$("#user_select").html('<option value="" selected disabled>Select a User of previous selected Project</option>');
+						var tmpEval = JSON.parse(ret);
+						for (var tmp in tmpEval["response"]["user"]) {
+							$("#user_select").append('<option value="'+tmp+'">'+tmpEval["response"]["user"][tmp]["name"]+' ['+tmpEval["response"]["user"][tmp]["role"]+'] ('+tmpEval["response"]["user"][tmp]["mail"]+')</option>');
+						}
+					}
+				});
+			});
+			$("#user_select").change(function(e) {
+				e.preventDefault();
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userGet","projectID":$("#user_project_select option:selected").val(),"userID":$("#user_select option:selected").val()},
+					dataType:"text",
+					success: function(ret) {
+						$("#users_output code").text(ret);
+						hljs.highlightBlock($("#users_output code")[0]);
+					}
+				});
+			});
+		</script>
+		<br>
+	</div>
+	<div id="tab-1" class="block">
+		<h2>User Register</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+
+			parameter:
+					a 		=	"userRegister"
+					projectID 	=	number 	// Required. ID of Project
+					name		=	string 	// Required. Name of User
+					mail		=	string 	// Required. Mail of User
+
+			Returning Code:
+					1		=	Not registered. Params are missing or mail is invalid
+					2		=	Not registered. email already exists in this project
+					3		=	Registered. But user needs to be activated
+					0		=	Registered and active. User can login now.
+
+			Notice: First color will be set by PHP to the first available and free colorcode defined in _data/config.json compared with _data/projects/#/users.json. if none is free first will be set.
+		</pre>
+		<form id="user_register">
+			<select id="user_register_project_select" class="project_select" name="projectID" size="10">
+				<option value="" selected disabled>Select a Project</option>
+			</select><br>
+			<input type="text" name="name" placeholder="Name"><br>
+			<input type="text" name="mail" placeholder="Mail"><br>
+			<input type="text" name="passwd" placeholder="Password"><br>
+			<input type="hidden" name="a" value="userRegister"><br>
+			<input type="submit" value="Register">
+		</form>
+
+		<pre id="user_register_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$("#user_register").ajaxForm({
+				method:"POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#user_register_output code").text(ret);
+					hljs.highlightBlock($("#user_register_output code")[0]);
+				}
+			});
+		</script>
+		<br>
+	</div>
+	<div id="tab-userlogin" class="block">
+		<h2>User Login</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+
+			parameter:
+					a 		=	"userLogin"
+					projectID 	=	number 	// Required. ID of Project
+					mail		=	string 	// Required. Mail of User
+					passwd		=	string 	// Required. Password of User
+
+			Returning Code:
+					0		=	Logged in!
+					1		=	mail, passwd or projectID arent given
+					2		=	User not found
+					3		=	Password incorrect
+					4		=	Could not find user-database // Project is missing?
+					5		=	User is not active!
+
+		</pre>
+		<form id="user_login" method="post">
+			<select class="project_select" name="projectID" size="10">
+				<option value="" selected disabled>Select a Project</option>
+			</select><br>
+			<input type="text" name="mail" placeholder="Mail" value="test@test.de"><br>
+			<input type="password" name="passwd" placeholder="Password" value="test"><br>
+			<input type="hidden" name="a" value="userLogin"><br>
+			<input type="submit" value="Login">
+		</form>
+
+		<pre id="user_login_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$("#user_login").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#user_login_output code").text(ret);
+					hljs.highlightBlock($("#user_login_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-userlogout" class="block">
+		<h2>User Logout</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"userLogout"
+					[projectID 	=	number 	// Optional. ID of Project]
+
+			Returning Code:
+					0		=	Logged out of specific Project
+					1		=	Logged out of all Projects
+
+			Notice: If no projectID is given, user will get logged out of all Projects (session gets destroyed). projectID can just be a Number, not an array of projects.
+		</pre>
+		<form id="user_logout" method="post">
+			<select class="project_select" name="projectID" size="10">
+				<option value="" selected disabled>Select a Project to logout (or leave blank to logout all)</option>
+			</select><br>
+			<input type="hidden" name="a" value="userLogout"><br>
+			<input type="submit" value="Logout">
+		</form>
+
+		<pre id="user_logout_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$("#user_logout").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#user_logout_output code").text(ret);
+					hljs.highlightBlock($("#user_logout_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-userCheckLogin" class="block">
+		<h2>User Check for Login to a given projectID</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"userCheckLogin"
+					projectID 	=	number 	// Required. ID of Project
+
+			Returning Code:
+					0		=	User not logged in to the Project
+					1		=	User logged in and returns User-Object in $return["response"]
+					2		=	Project could not be found
+					3		=	User is logged in but not active (anymore)
+
+		</pre>
+		<form id="user_checkLogin" method="post">
+			<select class="project_select" name="projectID" size="10">
+				<option value="" selected disabled>Select a Project to check if User is logged in</option>
+			</select><br>
+			<input type="hidden" name="a" value="userCheckLogin"><br>
+		</form>
+
+		<pre id="user_checkLogin_output"><code></code></pre>
+		<script type="text/javascript">
+			$("#user_checkLogin .project_select").on("change click", function() {
+				$("#user_checkLogin").trigger("submit");
+			});
+			$("#user_checkLogin").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#user_checkLogin_output code").text(ret);
+					hljs.highlightBlock($("#user_checkLogin_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-userChange" class="block">
+		<h2>Change User Settings</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"userChange"
+					projectID 	=	number 	// Required. ID of Project
+					userID 		=	number 	// Required. ID of User of Project
+					mail 		=	string 	// Required. new or old mail address. must be valid
+					name 		=	string 	// Required. new or old name
+					[passwd 	=	string 	// Optional. Old passwd will be used if empty]
+					[role 		=	string 	// Optional. "admin" or "user". admin can just be set when logged in user is admin]
+					[active 	=	boolean 	// Optional. 1 or 0, can just be changed when logged in user is admin]
+
+			Returning Code:
+					0		=	Success
+					1		=	Projects UserDB could not be find
+					2		=	User is not Admin and not himself
+					3		= 	All data has been saved exept mail because its not valid. so old mailaddress will still be saved/used
+					4		= 	User is not logged in into project
+					5		= 	Logged in User is not active. In this case User will get logged out!
+					6		= 	Targeted User was not found. Missing userID?
+
+			Notice: before anything will get changed, the session gets updated with database information. e.g.: User is admin, wants to change something,
+				and gets downgraded to user or gets set to inactive while he is logged in, he is not able to change something.
+		</pre>
+		<div id="user_change_loginstate"></div>
+		<form id="user_change" method="post">
+			<select class="project_select" name="projectID" size="10" id="user_change_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select>
+			<select name="userID" size="10" id="user_change_user">
+				<option value="" selected disabled>Select a User</option>
+			</select><br>
+			<input type="text" name='name' id="user_change_name" placeholder="name"><br>
+			<input type="text" name='mail' id="user_change_mail" placeholder="mail"><br>
+			<input type="text" name='color' id="user_change_color" placeholder="colorcode"><br>
+			<input type="password" name='passwd' id="user_change_passwd" placeholder="passwd"><br>
+			<input type="radio" name="role" id="user_change_role_admin" value="admin"> Admin<br>
+			<input type="radio" name="role" id="user_change_role_user" value="user"> User<br>
+			<input type="radio" name="active" id="user_change_active_1" value="1"> active<br>
+			<input type="radio" name="active" id="user_change_active_0" value="0"> inactive<br>
+			<br>
+			<input type="hidden" name="a" value="userChange"><br>
+			<input type="submit" value="ChangeUser">
+		</form>
+
+		<pre id="user_change_output"><code></code></pre>
+		<script type="text/javascript">
+			$("#user_change_project").on("change click", function(e) {
+				e.preventDefault();
+				$("#user_change input[type='text']").val("");
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userGet","projectID":$("#user_change_project option:selected").val()},
+					success: function(ret) {
+						$("#user_change_user").html('<option value="" selected disabled>Select a User</option>');
+						for (var tmp in ret["response"]["user"]) {
+							$("#user_change_user").append('<option value="'+tmp+'">'+ret["response"]["user"][tmp]["name"]+'</option>');
+						}
+					}
+				});
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userCheckLogin","projectID":$("#user_change_project option:selected").val()},
+					success: function(ret) {
+						if (ret["code"] == 1) {
+							$("#user_change_loginstate").html("You are logged in as <b>"+ret["response"]["name"]+"</b> ("+ret["response"]["mail"]+") with role <b>"+ret["response"]["role"]+"</b> and you are <b>"+((ret["response"]["active"]) ? "active" : "inactive")+"</b>");
+						} else {
+							$("#user_change_loginstate").html("You are <b>not logged in</b> to the project");
+						}
+					}
+				});
+
+
+			});
+
+			$("#user_change_user").change(function(e) {
+				e.preventDefault();
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userGet","projectID":$("#user_change_project option:selected").val(),"userID":$("#user_change_user option:selected").val()},
+					success: function(ret) {
+						$("#user_change_name").val(ret["response"]["name"]);
+						$("#user_change_mail").val(ret["response"]["mail"]);
+						$("#user_change_color").val(ret["response"]["color"]);
+						$("#user_change_passwd").val("");
+						$("#user_change input[name='role']").prop("checked",false).removeAttr("checked");
+						$("#user_change input#user_change_role_"+ret["response"]["role"]).prop("checked",true).attr("checked","checked");
+						$("#user_change input[name='active']").prop("checked",false).removeAttr("checked");
+						$("#user_change input#user_change_active_"+ret["response"]["active"]).prop("checked",true).attr("checked","checked");
+
+					}
+				});
+			});
+
+			$("#user_change").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#user_change_output code").text(ret);
+					hljs.highlightBlock($("#user_change_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-fileUpload" class="block">
+		<h2>File Upload</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"fileUpload"
+					projectID 	=	number 	// Required. ID of Project
+					type 		=	string 	// Required. "url", "image". "video", "map"
+					name 		=	string 	// Required. Name of new Resource
+					[description	=	string 	// Optional. Description of new Resource]
+					[attributes 	=	json 	// Required AND Optional. some $type need this param like "url"
+					[image 		=	file 	// Required if $type="image"]
+					[webm 		=	file 	// Required if $type="video"]
+					[mp4 		=	file 	// Required if $type="mp4"]
+					[lat 		=	string 	// Required if $type="map"]
+					[lon 		=	string 	// Required if $type="map"]
+					[boundingBox 	=	string 	// Required if $type="map"]
+
+
+			Returning Code:
+					0		=	Success. In $return["response"]["resource"] will the new JSON be returned. in $return["response"]["resId"] you can find the new ID
+					1		=	failed. User is not logged in into the Project. (or projectID is wrong)
+					2		=	failed. User is not activated.
+					3		= 	failed. Could not find the projects resources folder
+					4		= 	failed. Type "image" was expected but the file wasn't transferred.
+					5		= 	failed. Type "video" was expected but not both video files has been transferred.
+					6		= 	failed. Type "video" was expected but attached File-Mimetypes seem to be incorrect.
+					7		= 	failed. Type "map" was expected but $lat or $lon aren't send by parameter.
+					8		= 	failed. $type or $name have not been transferred.
+					9		= 	failed. $type was wrong.
+					10		=	failed. File size too big.
+					11		=	failed. Type "url" was expected but url is empty.
+
+			Notice: When _index.json of Project has not been found, file will get created.
+			Notice2: For JSON of $attributes look at old js files. Important for parsing an URL
+		</pre>
+		<div id="fileUpload_loginstate"></div>
+		<form id="fileUpload_form" method="post">
+			<select class="project_select" name="projectID" size="10" id="fileUpload_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select><br>
+			<input type="text" name='name' id="fileUpload_name" placeholder="name"><br>
+			<input type="text" name='description' placeholder="description"><br>
+			<input type="radio" name="type" id="fileUpload_type_url" value="url"> url<br>
+			<input type="radio" name="type" id="fileUpload_type_image" value="image"> image<br>
+			<input type="radio" name="type" id="fileUpload_type_video" value="video"> video<br>
+			<input type="radio" name="type" id="fileUpload_type_map" value="map"> map<br>
+			<textarea name="attributes" style="height: 110px; width: 200px">
+			</textarea><br>
+			<input type="text" name="lat" value="" class="special special_map" placeholder="lat"><br>
+			<input type="text" name="lon" value="" class="special special_map" placeholder="lon"><br>
+			<input type="text" name="boundingBox" value="" class="special special_map" placeholder="boundingBox"><br>
+			<input type="file" name="image" class="special special_image" placeholder="image"><br>
+			<span class="special special_video">*.webm: <input type="file" name="webm" class="special special_video" placeholder="webm"></span><br>
+			<span class="special special_video">*.mp4: <input type="file" name="mp4" class="special special_video" placeholder="mp4"></span><br>
+			<!--
+			<span class="special special_video">Subtitles: <button id="fileUpload_subtitlesPlus" type="button">+</button><br><span id="fileUpload_subtitlesContainer"></span></span>
+			-->
+			<br>
+			<input type="hidden" name="a" value="fileUpload"><br>
+			<input type="submit" value="UploadFile">
+		</form>
+
+		<pre id="fileUpload_output"><code></code></pre>
+		<script type="text/javascript">
+			$("#fileUpload_form .special").hide().prop("disabled",true).attr("disabled","disabled");
+			$("#fileUpload_form input[name='type']").change(function() {
+				$("#fileUpload_form .special").hide();
+				$("#fileUpload_form textarea[name='attributes']").val("");
+				switch($("#fileUpload_form input[name='type']:checked").val()) {
+					case "url":
+						$("#fileUpload_form textarea[name='attributes']").val('{"src":"http://google.de","type":"webpage","attributes":{},"thumb":""}');
+					break;
+					case "image":
+						$("#fileUpload_form .special_image").show().prop("disabled",false).removeAttr("disabled");
+					break;
+					case "video":
+						$("#fileUpload_form .special_video").show().prop("disabled",false).removeAttr("disabled");
+					break;
+					case "map":
+						$("#fileUpload_form .special_map").show().prop("disabled",false).removeAttr("disabled");
+					break;
+				}
+			});
+			$("#fileUpload_project").on("change click", function(e) {
+				e.preventDefault();
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userCheckLogin","projectID":$("#fileUpload_project option:selected").val()},
+					success: function(ret) {
+						if (ret["code"] == 1) {
+							$("#fileUpload_loginstate").html("You are logged in as <b>"+ret["response"]["name"]+"</b> ("+ret["response"]["mail"]+") with role <b>"+ret["response"]["role"]+"</b> and you are <b>"+((ret["response"]["active"]) ? "active" : "inactive")+"</b>");
+						} else {
+							$("#fileUpload_loginstate").html("You are <b>not logged in</b> to the project");
+						}
+					}
+				});
+			});
+
+			/*
+			$("#fileUpload_subtitlesPlus").on("click", function() {
+				$("#fileUpload_subtitlesContainer").append("<span class='fileUpload_subtitlesItem'><input type='text' placeholder='lang' class='fileUpload_subtitlesTmpKeySetter'> <input type='file' name='subtitles[]'> <button class='fileUpload_subtitlesRemove'>-</button><br></span>");
+			});
+
+
+			$("#fileUpload_form").on("click", ".fileUpload_subtitlesRemove", function() {
+				$(this).parent().remove();
+			});
+
+			$("#fileUpload_form").on("change", ".fileUpload_subtitlesTmpKeySetter", function() {
+				$(this).parent().find("input[type='file']").attr("name", "subtitles["+$(this).val()+"]");
+			});
+			*/
+
+			$("#fileUpload_form").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				/*
+				beforeSerialize: function() {
+					var err = 0;
+					$(".fileUpload_subtitlesItem").each(function() {
+						$(this).css({"border": ""});
+
+						if (($(this).find("input[type='file']:first").val() == "subtitles[]") || ($(this).find(".fileUpload_subtitlesTmpKeySetter").first().val() == "")) {
+							$(this).css({"border": "1px solid red"});
+							err++;
+						}
+					});
+					if (err > 0) {
+						return false;
+					}
+				},
+				*/
+				success: function(ret) {
+					$("#fileUpload_output code").text(ret);
+					hljs.highlightBlock($("#fileUpload_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-fileUploadThumb" class="block">
+		<h2>Upload Thumb for Resources-File</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"fileUploadThumb"
+					projectID 	=	number 	// Required. ID of Project
+					resourcesID 	=	number 	// Required. ID of Resource of Project
+					thumb 		=	base64-string 	// Required. String containing base64 of Thumb
+
+
+			Returning Code:
+					0		=	Success. In $return["response"] will the full Object of manipulated Resource be returned.
+					1		=	failed. User is not logged in into the Project. (or projectID is wrong)
+					2		=	failed. User is not activated.
+					3		= 	failed. Could not find the projects resources folder
+					4		= 	failed. resourcesID or thumb are not transferred
+					5		= 	failed. No valid resourcesID
+					6		= 	failed. Not permitted. Its not your resource and you're not an admin!
+
+			Notice: thumb needs to be a base64 string of a PNG
+		</pre>
+		<div id="fileUploadThumb_loginstate"></div>
+		<form id="fileUploadThumb_form" method="post">
+			<select class="project_select" name="projectID" size="10" id="fileUploadThumb_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select>
+			<select name="resourcesID" size="10" id="fileUploadThumb_resource">
+				<option value="" selected disabled>Select a resource</option>
+			</select>
+			<br>
+			<textarea name="thumb" style="height: 110px; width: 200px">data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAB4CAMAAACATE3ZAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNSBNYWNpbnRvc2giIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MDM2NEJCODFBNjk4MTFFMTlFMDdDNjAyNTc3QzIxNzQiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MDM2NEJCODJBNjk4MTFFMTlFMDdDNjAyNTc3QzIxNzQiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDowMzY0QkI3RkE2OTgxMUUxOUUwN0M2MDI1NzdDMjE3NCIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDowMzY0QkI4MEE2OTgxMUUxOUUwN0M2MDI1NzdDMjE3NCIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PlaiQfEAAAMAUExURUhGR/Ly87S2uKyusMTFxurq64ODhLm6vPDw8fT09KSmqMnJyry9v8HCxL2+wMDBw7GytOjo6dLS1HNzdM3O0KmqrFxbXPb29jg2N+bm58nKzKCipJyeoNra29bW18XGyJianLW1trq8vtjY2qaoqvj4+K6wsri5u7Cxs9TU1t7e3+Dg4aytrszMzuTk5aipq+Tl5qqsruDg4pSWmPr6+p6gotzc3err7IyOkN7e3qWlptDQ0ra4uqKkprK0tubn6OLi45CSlOjo6tra2tzc3MLExVRTVL/AwikmJ+Li5NjY2GpqaqGhomFgYezt7omKjf///46Qkpqcnm1sbYmIiWVmZpWVlpydntTU1I6Mjfz8/JaYmtLS0sfIytbW1pmZmpKUlnl4es3MzM/Q0dDQ0O/v8YSGiJGRkn19fsvMzdPT1c7Oz/Py9NTW1tfY2Xp6fNrc3dDS09/g4YqMjt3e3/Hx8gwLDIaIimhoaPX19dna2+Hi43Z1d4CAgn1+gG5ucOLk5czNz3t9f2xqbF9dXvHy8svLzW9wcZybnGZoaXx7fM/P0KCfoD48PWlpbOXm55CPkGZjZO/w8GhoamRhYqenqOfo6eHh4pSTlNXV12NiY2BfYPv7+4uKi+np6qOjpL+/wGdmaHBubpiXmHd4enh3eM3NzouLjV1eXoiHiGhnaPf4+e7t71pYWd/f4NnZ2nx5e2ppacvKy4eGh7m3uGdlZq+ur6uqq3JvcGlqa2toaGRkZU5MTVdZWkNAQVlWVzQxMlJPUS4sLezs7e7u7+3t7u7u7uzs7O/v8Pf39/n5+d3d3tHR0sfHyOPj5Ovs7LSztOXl5pCOj2tra+zt7a+vsO3u7iIgIf39/bu7vJ+en9fX2KSio8/Pz5eWl09QUOfn6O3s7e/u7+vr7Pr5+vHx8fLx8j9AQbSzs6urrHl2d/X29/b19uHh4dvb3N3d3dvb2xwaG1dXV/v8/Pz7/Pn6+vr6+dXV1cfGx2xsa5OSk39+f8PCw/7+/cPDxAAAAKhZLeAAAAEAdFJOU////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////wBT9wclAAAZu0lEQVR42uycC3TSV57Hw+OfECC8khgJAUIeECABEaE0ASTVBGtj8/BtGkXj2IZk40bNWny0G2vREW07rSlF41+m1tg6I9ToaGfrOLZAQoQwpTZTkdZhhs2cye6KbvdR7QP2XqKdzhnnnF2rxLMn95wQkz/6vx+/v+e9l39a4v/JSJsCmQKZApkCmQKZApkCmQKZApkCmQKZApkCeThAzPf0t1jEhw1ESO33cf+vs1paouXLHi4QZb/NGqY1/m/fjtOqBbRELrFAw8fJZA8RCKkq8LjVTqy960V7hblf/+cfR7UhfZaeUlTET2hYS8vK7hfJ/QBpfUPJyccTC+9+NeZjx0a+oyrqaeHGqXoKORTS4mRYrAyLk0mJxIcBxBZ72sYhFhSw7n65pF3JjnWpEwksmdtjseDjbdx4DT6LUpSRISjSHH9zPRaHyy0hTjoIc+DMbvzs8oKyv/WGbJrDF2MXGxlCm9Bv6enRk8zmllDNCIWcUYTbtvOFSzunXSqTTj6I5OqeSoKyhp31N/1HucEnCvqcsU6bsctvyenB4+Nqsj6LW1REyT2/94P0F9LO7eGXNE0yiDVIWhqJRDwSmuFuly1brLMDYquxkhOo2sKxcRiQhMRt4daQb+rJRfoPamnnVQdfqpOVlGgmFaRY4rnyQgClD7US0/9aLB3zMTpTEpC4A7XZn9V+7bANPAVJKoBttWSF8BQy9cq8Q1f2HauVlf9wL/lhIHQmnbTXhUYlWsVfXyR4EJQeefn1OV/t/rhSeOjEPzJOkDsZVZaenIzyMlkIb6cU4Y/OI26vXYWDIJpJBIkwHQFJFEU9bZq7xF7EgyCoB2G63tv1IvLk0v2PfDRti83IaG3Fl3HJGSNZVD2ZTDlwYY9GzS+XSUuIBfKMSQIRRxxBTBRBXDpa892ue5FHOnSI18X5df9s1/ZFsxftZ3QKjV0M/UhOPgkfh2mRQj52VUDjA0k0CpYMNzkgEVRndXsjEl3QJs2+2xtMhIv9vWWoF3EqI9b9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</textarea><br>
+
+			<input type="hidden" name="a" value="fileUploadThumb"><br>
+			<input type="submit" value="add Thumb">
+		</form>
+
+		<pre id="fileUploadThumb_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$("#fileUploadThumb_project").on("change", function(e) {
+				e.preventDefault();
+				var tmpProjectID = $("#fileUploadThumb_project option:selected").val();
+				$("#fileUploadThumb_resource").html('<option value="" selected disabled>Select a resource</option>');
+
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userCheckLogin","projectID":$("#fileUploadThumb_project option:selected").val()},
+					success: function(ret) {
+						if (ret["code"] == 1) {
+							$("#fileUploadThumb_loginstate").html("You are logged in as <b>"+ret["response"]["name"]+"</b> ("+ret["response"]["mail"]+") with role <b>"+ret["response"]["role"]+"</b> and you are <b>"+((ret["response"]["active"]) ? "active" : "inactive")+"</b>");
+						} else {
+							$("#fileUploadThumb_loginstate").html("You are <b>not logged in</b> to the project");
+						}
+					}
+				});
+
+
+				$.ajax({
+					method:"POST",
+					url:"../_data/projects/"+tmpProjectID+"/resources/_index.json",
+					success: function(ret) {
+						if (!"resources" in ret) {
+							return;
+						}
+						for (var k in ret["resources"]) {
+							$("#fileUploadThumb_resource").append('<option value="'+k+'">'+ret["resources"][k]["name"]+'</option>');
+						}
+					}
+				});
+
+
+			});
+
+			$("#fileUploadThumb_form").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#fileUploadThumb_output code").text(ret);
+					hljs.highlightBlock($("#fileUploadThumb_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-fileGetMaxUploadSize" class="block">
+		<h2>Get Maximum Upload Size</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"fileGetMaxUploadSize"
+
+			Returning Code:
+					0		=	Returns "maxuploadbytes"
+
+		</pre>
+		<form id="fileGetMaxUploadSize" method="post">
+			<input type="hidden" name="a" value="fileGetMaxUploadSize">
+			<input type="submit" value="Get Max Upload Size">
+		</form>
+
+		<pre id="fileGetMaxUploadSize_output"><code></code></pre>
+		<script type="text/javascript">
+			$("#fileGetMaxUploadSize").ajaxForm({
+				method: "GET",
+				url: "ajaxServer.php",
+				success: function(ret) {
+					var response = JSON.stringify(ret);
+					$("#fileGetMaxUploadSize_output code").text(response);
+					hljs.highlightBlock($("#fileGetMaxUploadSize_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-fileDelete" class="block">
+		<h2>Delete Resources-File</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"fileDelete"
+					projectID 	=	number 	// Required. ID of Project
+					resourcesID 	=	number 	// Required. ID of Resource of Project
+
+
+			Returning Code:
+					0		=	Success. Resource and its thumbs have been deleted.
+					1		=	failed. User is not logged in into the Project. (or projectID is wrong)
+					2		=	failed. Could not find resources database (json)
+					3		= 	failed. resourcesID was not found. Missing or wrong ID
+					4		= 	failed. Not permitted. Its not your resource and you're no admin!
+					5		= 	failed. Resource is in use. Check out $return["used"] where
+
+		</pre>
+		<div id="fileDelete_loginstate"></div>
+		<form id="fileDelete_form" method="post">
+			<select class="project_select" name="projectID" size="10" id="fileDelete_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select>
+			<select name="resourcesID" size="10" id="fileDelete_resource">
+				<option value="" selected disabled>Select a resource</option>
+			</select>
+			<br>
+
+			<input type="hidden" name="a" value="fileDelete"><br>
+			<input type="submit" value="Delete Resource">
+		</form>
+
+		<pre id="fileDelete_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$("#fileDelete_project").on("click", function(e) {
+				e.preventDefault();
+				var tmpProjectID = $("#fileDelete_project option:selected").val();
+				$("#fileDelete_resource").html('<option value="" selected disabled>Select a resource</option>');
+
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userCheckLogin","projectID":$("#fileDelete_project option:selected").val()},
+					success: function(ret) {
+						if (ret["code"] == 1) {
+							$("#fileDelete_loginstate").html("You are logged in as <b>"+ret["response"]["name"]+"</b> ("+ret["response"]["mail"]+") with role <b>"+ret["response"]["role"]+"</b> and you are <b>"+((ret["response"]["active"]) ? "active" : "inactive")+"</b>");
+						} else {
+							$("#fileDelete_loginstate").html("You are <b>not logged in</b> to the project");
+						}
+					}
+				});
+
+
+				$.ajax({
+					method:"POST",
+					url:"../_data/projects/"+tmpProjectID+"/resources/_index.json",
+					success: function(ret) {
+						if (!"resources" in ret) {
+							return;
+						}
+						for (var k in ret["resources"]) {
+							$("#fileDelete_resource").append('<option value="'+k+'">'+ret["resources"][k]["name"]+'</option>');
+						}
+					}
+				});
+
+
+			});
+
+			$("#fileDelete_form").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#fileDelete_output code").text(ret);
+					hljs.highlightBlock($("#fileDelete_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-fileGetByFilter" class="block">
+		<h2>Get a File by Filter</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"fileGetByFilter"
+					projectID 	=	number 	// Required. ID of Project
+					key 		=	string 	// Required. The key of the resources object we are looking for (name, creator, creatorId, created, description, src, type, thumb)
+					condition 	=	string 	// Required. The condition as string "==", "!=", ">=", "<=", "contains"
+					value 		=	string 	// Required. The expected value
+
+
+			Returning Code:
+					0		=	Success. Resource and its thumbs have been deleted.
+					1		=	failed. Missing parameter
+
+		</pre>
+		<form id="fileGetByFilter_form" method="post">
+			<select class="project_select" name="projectID" size="10" id="fileGetByFilter_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select>
+			<br>
+			<input type="text" name="key" value="type">
+			<select name="condition">
+				<option value="==" selected>==</option>
+				<option value="!=">!=</option>
+				<option value="<="><=</option>
+				<option value=">=">>=</option>
+				<option value="contains">contains</option>
+			</select>
+			<input type="text" name="value" value="video">
+
+			<input type="hidden" name="a" value="fileGetByFilter"><br>
+			<input type="submit" value="Find Resource">
+		</form>
+
+		<pre id="fileGetByFilter_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$("#fileGetByFilter_form").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#fileGetByFilter_output code").text(ret);
+					hljs.highlightBlock($("#fileGetByFilter_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-hypervideoAdd" class="block">
+		<h2>Add Hypervideo</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"hypervideoAdd"
+					projectID 	=	number 	// Required. ID of Project
+					[resourcesID 	=	string 	// Partly-Required. If not set, duration parameter has to be submitted. If set, the Resource has to exist and needs to be type=video]
+					[duration 	=	number 	// Partly-Required. If not set, resourcesID has to be submitted]
+					name 		=	string 	// Required. Min 3 characters
+					description 	=	string 	// Required.
+					hidden 		=	boolean 	// Required. Look at default config of project.
+					[start 		=	number 	// Optional]
+					[end 		=	number 	// Optional]
+					[in 		=	number 	// Optional]
+					[out 		=	number 	// Optional]
+					[config 	= 	array // Optional. Will overwrite the default values hardcoded into php. Must be an Array not a JSON!]
+					[subtitles 	= 	array // Optional array of subtitles including a subtitle file]
+
+			Returning Code:
+					0		=	Success. Hypervideo has been added. Returning new Object in response
+					1		=	failed. User not logged in
+					2		=	failed. User not active
+					3		=	failed. Could not find the projects resources folder
+					4		=	failed. Name (min 3 chars) or Description have not been submitted.
+					5		=	failed. resourcesID is not found or no video and duration is not set. [resourcesID or duration] is required.
+
+		</pre>
+		<div id="hypervideoAdd_loginstate"></div>
+		<form id="hypervideoAdd_form" method="post">
+			<select class="project_select" name="projectID" size="10" id="hypervideoAdd_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select>
+			<select name="resourcesID" size="10" id="hypervideoAdd_resourcesID">
+				<option value="" selected disabled>Select a Video-Resource</option>
+			</select>
+			<br>
+			<input type="text" name="duration" placeholder="duration"><br>
+			<input type="text" name="start" placeholder="start"><br>
+			<input type="text" name="end" placeholder="end"><br>
+			<input type="text" name="in" placeholder="in"><br>
+			<input type="text" name="out" placeholder="out"><br>
+			<input type="text" name="name" placeholder="Name"><br>
+			<input type="text" name="description" placeholder="Description"><br>
+
+
+			<input type="hidden" name="a" value="hypervideoAdd"><br>
+			<input type="submit" value="Add new Hypervideo">
+		</form>
+
+		<pre id="hypervideoAdd_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$("#hypervideoAdd_project").on("click", function(e) {
+				e.preventDefault();
+				var tmpProjectID = $("#hypervideoAdd_project option:selected").val();
+				$("#hypervideoAdd_resourcesID").html('<option value="" selected disabled>Select a Video-Resource</option>');
+				$.ajax({
+					method:"POST",
+					url:"../_data/projects/"+tmpProjectID+"/resources/_index.json",
+					success: function(ret) {
+						if (!"resources" in ret) {
+							return;
+						}
+						for (var k in ret["resources"]) {
+							$("#hypervideoAdd_resourcesID").append('<option value="'+k+'">'+ret["resources"][k]["name"]+' ('+ret["resources"][k]["type"]+')</option>');
+						}
+					}
+				});
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userCheckLogin","projectID":$("#hypervideoAdd_project option:selected").val()},
+					success: function(ret) {
+						if (ret["code"] == 1) {
+							$("#hypervideoAdd_loginstate").html("You are logged in as <b>"+ret["response"]["name"]+"</b> ("+ret["response"]["mail"]+") with role <b>"+ret["response"]["role"]+"</b> and you are <b>"+((ret["response"]["active"]) ? "active" : "inactive")+"</b>");
+						} else {
+							$("#hypervideoAdd_loginstate").html("You are <b>not logged in</b> to the project");
+						}
+					}
+				});
+
+			});
+
+			$("#hypervideoAdd_form").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#hypervideoAdd_output code").text(ret);
+					hljs.highlightBlock($("#hypervideoAdd_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-hypervideoClone" class="block">
+		<h2>Clone Hypervideo</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"hypervideoClone"
+					projectID 	=	number 	// Required. ID of Project
+					hypervideoID 	=	string 	// Required. The hypervideo which has to be cloned
+					name 		=	string 	// Required. Min 3 characters
+					description 	=	string 	// Required.
+
+			Returning Code:
+					0		=	Success. Hypervideo has been cloned. Returning new Object in response
+					1		=	failed. User not logged in
+					2		=	failed. User not active
+					3		=	failed. Could not find the projects resources folder
+					4		=	failed. Name (min 3 chars) or Description have not been submitted.
+					5		=	failed. hypervideoID has not been found
+
+			Notice: there will be just one annotationfile in the forked hypervideo. if user already had one at the original HV, it will be the new main. If not, an empty file will be created.
+		</pre>
+		<div id="hypervideoClone_loginstate"></div>
+		<form id="hypervideoClone_form" method="post">
+			<select class="project_select" name="projectID" size="10" id="hypervideoClone_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select>
+			<select name="hypervideoID" size="10" id="hypervideoClone_hypervideoID">
+				<option value="" selected disabled>Select a Hypervideo to clone</option>
+			</select>
+			<br>
+			<input type="text" name="name" placeholder="Name">
+			<input type="text" name="description" placeholder="Description">
+
+
+			<input type="hidden" name="a" value="hypervideoClone"><br>
+			<input type="submit" value="Add new Hypervideo">
+		</form>
+
+		<pre id="hypervideoClone_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$("#hypervideoClone_project").on("click", function(e) {
+				e.preventDefault();
+				var tmpProjectID = $("#hypervideoClone_project option:selected").val();
+				$("#hypervideoClone_hypervideoID").html('<option value="" selected disabled>Select a Hypervideo to clone</option>');
+				$.ajax({
+					method:"POST",
+					url:"../_data/projects/"+tmpProjectID+"/hypervideos/_index.json",
+					success: function(ret) {
+						if (!"hypervideos" in ret) {
+							return;
+						}
+						for (var k in ret["hypervideos"]) {
+							$("#hypervideoClone_hypervideoID").append('<option value="'+k+'">'+ret["hypervideos"][k]["name"]+' (by '+ret["hypervideos"][k]["creator"]+')</option>');
+						}
+					}
+				});
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userCheckLogin","projectID":$("#hypervideoClone_project option:selected").val()},
+					success: function(ret) {
+						if (ret["code"] == 1) {
+							$("#hypervideoClone_loginstate").html("You are logged in as <b>"+ret["response"]["name"]+"</b> ("+ret["response"]["mail"]+") with role <b>"+ret["response"]["role"]+"</b> and you are <b>"+((ret["response"]["active"]) ? "active" : "inactive")+"</b>");
+						} else {
+							$("#hypervideoClone_loginstate").html("You are <b>not logged in</b> to the project");
+						}
+					}
+				});
+
+			});
+
+			$("#hypervideoClone_form").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#hypervideoClone_output code").text(ret);
+					hljs.highlightBlock($("#hypervideoClone_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-hypervideoDelete" class="block">
+		<h2>Delete Hypervideo</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"hypervideoDelete"
+					projectID 	=	number 	// Required. ID of Project
+					hypervideoID 	=	string 	// Required. The hypervideo which has to be deleted
+					hypervideoName 	=	string 	// Required. The name of the hypervideo which will be deleted. for validation.
+
+			Returning Code:
+					0		=	Success. Hypervideo deleted.
+					1		=	failed. Not logged in to the projectID.
+					2		=	failed. User not active
+					3		=	failed. Could not find the projects hypervideosID folder
+					4		=	failed. hypervideoID could not be found in database.
+					5		=	failed. hypervideoName is not correct.
+					6		=	failed. permission denied! The User is not an admin, nor is it his own hypervideo.
+
+		</pre>
+		<div id="hypervideoDelete_loginstate"></div>
+		<form id="hypervideoDelete_form" method="post">
+			<select class="project_select" name="projectID" size="10" id="hypervideoDelete_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select>
+			<select name="hypervideoID" size="10" id="hypervideoDelete_hypervideoID">
+				<option value="" selected disabled>Select a Hypervideo to delete</option>
+			</select>
+			<br>
+			<input type="text" name="hypervideoName" placeholder="Name">
+
+			<input type="hidden" name="a" value="hypervideoDelete"><br>
+			<input type="submit" value="DELETE the Hypervideo">
+		</form>
+
+		<pre id="hypervideoDelete_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$("#hypervideoDelete_project").on("click", function(e) {
+				e.preventDefault();
+				var tmpProjectID = $("#hypervideoDelete_project option:selected").val();
+				$("#hypervideoDelete_hypervideoID").html('<option value="" selected disabled>Select a Hypervideo to delete</option>');
+				$.ajax({
+					method:"POST",
+					url:"../_data/projects/"+tmpProjectID+"/hypervideos/_index.json",
+					success: function(ret) {
+						if (!"hypervideos" in ret) {
+							return;
+						}
+						for (var k in ret["hypervideos"]) {
+							$("#hypervideoDelete_hypervideoID").append('<option value="'+k+'">'+ret["hypervideos"][k]["name"]+' (by '+ret["hypervideos"][k]["creator"]+')</option>');
+						}
+					}
+				});
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userCheckLogin","projectID":$("#hypervideoDelete_project option:selected").val()},
+					success: function(ret) {
+						if (ret["code"] == 1) {
+							$("#hypervideoDelete_loginstate").html("You are logged in as <b>"+ret["response"]["name"]+"</b> ("+ret["response"]["mail"]+") with role <b>"+ret["response"]["role"]+"</b> and you are <b>"+((ret["response"]["active"]) ? "active" : "inactive")+"</b>");
+						} else {
+							$("#hypervideoDelete_loginstate").html("You are <b>not logged in</b> to the project");
+						}
+					}
+				});
+
+			});
+
+			$("#hypervideoDelete_form").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#hypervideoDelete_output code").text(ret);
+					hljs.highlightBlock($("#hypervideoDelete_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-hypervideoChange" class="block">
+		<h2>Edit Hypervideo</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		           =	"hypervideoChange"
+					projectID 	       =	number 	// Required. ID of Project
+					hypervideoID 	   =	string 	// Required. The hypervideoID
+					name 		       =	string 	// Optional new name. min 3 chars
+					description 	   =	string 	// Optional. new description
+					hidden 		       =	boolean 	// Optional. "true" or "false"
+					config 		       =	array 	// Optional. array of new config key/value pairs
+					[subtitlesToDelete = 	array // Optional array of language codes]
+					[subtitles 	       = 	array // Optional array of subtitles including a subtitle file]
+
+			Returning Code:
+					0		=	Success. Hypervideo has been changed. returned new HV in response
+					1		=	failed. Not logged in to the projectID.
+					2		=	failed. User not active
+					3		=	failed. HypervideoID not found.
+					4		=	failed. permission denied! The User is not an admin, nor is it his own hypervideo.
+					5		=	You tried to change the name but it has to be min. 3 characters.
+
+		</pre>
+		<div id="hypervideoChange_loginstate"></div>
+		<form id="hypervideoChange_form" method="post">
+			<select class="project_select" name="projectID" size="10" id="hypervideoChange_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select>
+			<select name="hypervideoID" size="10" id="hypervideoChange_hypervideoID">
+				<option value="" selected disabled>Select a Hypervideo</option>
+			</select><br>
+			<input type="text" name="name" id="hypervideoChange_name" placeholder="name"><br>
+			<input type="text" name="description" id="hypervideoChange_description" placeholder="description"><br>
+			<br>hidden:
+			<select name="hidden" size="3" id="hypervideoChange_hidden">
+				<option value="">dont change</option>
+				<option value="true">true</option>
+				<option value="false">false</option>
+			</select><br>
+			3 config examples:<br>
+			annotationsVisible: <input type="text" name="config[annotationsVisible]" id="hypervideoChange_annotationsVisible"><br>
+			annotationsPosition: <input type="text" name="config[annotationsPosition]" id="hypervideoChange_annotationsPosition"><br>
+			overlaysVisible: <input type="text" name="config[overlaysVisible]" id="hypervideoChange_overlaysVisible"><br>
+
+
+			<input type="hidden" name="a" value="hypervideoChange"><br>
+			<input type="submit" value="Change the File">
+		</form>
+
+		<pre id="hypervideoChange_output"><code></code></pre>
+		<script type="text/javascript">
+			var hypervideoChange_hv;
+			$("#hypervideoChange_project").on("click", function(e) {
+				e.preventDefault();
+				var tmpProjectID = $("#hypervideoChange_project option:selected").val();
+				$("#hypervideoChange_hypervideoID").html('<option value="" selected disabled>Select a Hypervideo to edit</option>');
+				$.ajax({
+					method:"POST",
+					url:"../_data/projects/"+tmpProjectID+"/hypervideos/_index.json",
+					success: function(ret) {
+						if (!"hypervideos" in ret) {
+							return;
+						}
+						hypervideoChange_hv = ret;
+						for (var k in ret["hypervideos"]) {
+							$("#hypervideoChange_hypervideoID").append('<option value="'+k+'">'+ret["hypervideos"][k]["name"]+' (by '+ret["hypervideos"][k]["creator"]+')</option>');
+						}
+					}
+				});
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userCheckLogin","projectID":$("#hypervideoChange_project option:selected").val()},
+					success: function(ret) {
+						if (ret["code"] == 1) {
+							$("#hypervideoChange_loginstate").html("You are logged in as <b>"+ret["response"]["name"]+"</b> ("+ret["response"]["mail"]+") with role <b>"+ret["response"]["role"]+"</b> and you are <b>"+((ret["response"]["active"]) ? "active" : "inactive")+"</b>");
+						} else {
+							$("#hypervideoChange_loginstate").html("You are <b>not logged in</b> to the project");
+						}
+					}
+				});
+			});
+
+			$("#hypervideoChange_hypervideoID").on("change", function() {
+
+				var hvID = $("#hypervideoChange_hypervideoID option:selected").val();
+				var hvCurr = hypervideoChange_hv["hypervideos"][hvID];
+				console.log(hvCurr);
+				$("#hypervideoChange_name").val(hvCurr["name"]);
+				$("#hypervideoChange_description").val(hvCurr["description"]);
+				$("#hypervideoChange_annotationsVisible").val(hvCurr["config"]["annotationsVisible"].toString());
+				$("#hypervideoChange_annotationsPosition").val(hvCurr["config"]["annotationsPosition"].toString());
+				$("#hypervideoChange_overlaysVisible").val(hvCurr["config"]["overlaysVisible"].toString());
+				$("#hypervideoChange_hidden option").prop("selected",false).removeAttr("selected");
+				$("#hypervideoChange_hidden option[value='"+hvCurr["hidden"].toString()+"']").prop("selected",true).attr("selected","selected");
+
+			});
+			$("#hypervideoChange_form").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$.ajax({
+						method:"POST",
+						url:"../_data/projects/"+$("#hypervideoChange_project option:selected").val()+"/hypervideos/_index.json",
+						success: function(ret) {
+							if (!"hypervideos" in ret) {
+								return;
+							}
+							hypervideoChange_hv = ret;
+							$("#hypervideoChange_hypervideoID").trigger("change");
+						}
+					});
+					$("#hypervideoChange_output code").text(ret);
+					hljs.highlightBlock($("#hypervideoChange_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-hypervideoChangeFile" class="block">
+		<h2>Change overlays.json or links.json</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"hypervideoChangeFile"
+					projectID 	=	number 	// Required. ID of Project
+					hypervideoID 	=	string 	// Required. The hypervideo
+					type 		=	string 	// "overlays", "links" or "codeSnippets"
+					src 		=	string 	// Required. JSON object as String which shall replace the old $type.json
+
+			Returning Code:
+					0		=	Success. File has been written
+					1		=	failed. Not logged in to the projectID.
+					2		=	failed. User not active
+					3		=	failed. type not correct. ("overlays", "links")
+					4		=	failed. HypervideoID not found.
+					5		=	failed. permission denied! The User is not an admin, nor is it his own hypervideo.
+
+		</pre>
+		<div id="hypervideoChangeFile_loginstate"></div>
+		<form id="hypervideoChangeFile_form" method="post">
+			<select class="project_select" name="projectID" size="10" id="hypervideoChangeFile_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select>
+			<select name="hypervideoID" size="10" id="hypervideoChangeFile_hypervideoID">
+				<option value="" selected disabled>Select a Hypervideo</option>
+			</select>
+			<select name="type" size="2" id="hypervideoChangeFile_type">
+				<option value="overlays" selected>overlays</option>
+				<option value="links">links</option>
+				<option value="codeSnippets">codeSnippets</option>
+			</select><br>
+			<textarea name="src" style="width: 300px; height:90px;" id="hypervideoChangeFile_src">
+[{
+"name": "",
+"creator": "",
+"creatorId": "",
+"created": "",
+"type": "video",
+"src": "",
+"start": 0,
+"end": 0,
+"resourceId": "",
+"attributes": {"alternateVideoFile": ""},
+"position": {"top":0,"left":0,"width":0,"height":0}
+}]
+			</textarea>
+
+			<input type="hidden" name="a" value="hypervideoChangeFile"><br>
+			<input type="submit" value="Change the File">
+		</form>
+
+		<pre id="hypervideoChangeFile_output"><code></code></pre>
+		<script type="text/javascript">
+
+			$("#hypervideoChangeFile_project").on("click", function(e) {
+				e.preventDefault();
+				var tmpProjectID = $("#hypervideoChangeFile_project option:selected").val();
+				$("#hypervideoChangeFile_hypervideoID").html('<option value="" selected disabled>Select a Hypervideo</option>');
+				$.ajax({
+					method:"POST",
+					url:"../_data/projects/"+tmpProjectID+"/hypervideos/_index.json",
+					success: function(ret) {
+						if (!"hypervideos" in ret) {
+							return;
+						}
+						for (var k in ret["hypervideos"]) {
+							$("#hypervideoChangeFile_hypervideoID").append('<option value="'+k+'">'+ret["hypervideos"][k]["name"]+' (by '+ret["hypervideos"][k]["creator"]+')</option>');
+						}
+					}
+				});
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userCheckLogin","projectID":$("#hypervideoChangeFile_project option:selected").val()},
+					success: function(ret) {
+						if (ret["code"] == 1) {
+							$("#hypervideoChangeFile_loginstate").html("You are logged in as <b>"+ret["response"]["name"]+"</b> ("+ret["response"]["mail"]+") with role <b>"+ret["response"]["role"]+"</b> and you are <b>"+((ret["response"]["active"]) ? "active" : "inactive")+"</b>");
+						} else {
+							$("#hypervideoChangeFile_loginstate").html("You are <b>not logged in</b> to the project");
+						}
+					}
+				});
+			});
+
+			$("#hypervideoChangeFile_type").on("change", function() {
+				if ($("#hypervideoChangeFile_type option:selected").val() == "overlays") {
+					$("#hypervideoChangeFile_src").val('[{' +
+					'"name": "",' +
+					'"creator": "",' +
+					'"creatorId": "",' +
+					'"created": "",' +
+					'"type": "video",' +
+					'"src": "",' +
+					'"start": 0,' +
+					'"end": 0,' +
+					'"resourceId": "",' +
+					'"attributes": {"alternateVideoFile": ""},' +
+					'"position": {"top":0,"left":0,"width":0,"height":0}' +
+					'}]');
+				} else if ($("#hypervideoChangeFile_type option:selected").val() == "links") {
+					$("#hypervideoChangeFile_src").val('[{' +
+					'"name":"",' +
+					'"creator":"",' +
+					'"creatorId":4,' +
+					'"created":"",' +
+					'"start":6.109180858310627,' +
+					'"end":8.284657697547685,' +
+					'"attributes":[],' +
+					'"hypervideoId": "2"' +
+					'}]');
+				}
+			});
+			$("#hypervideoChangeFile_form").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#hypervideoChangeFile_output code").text(ret);
+					hljs.highlightBlock($("#hypervideoChangeFile_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-annotationfileSave" class="block">
+		<h2>Save Annotationfile</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"annotationfileSave"
+					projectID 	=	number 	// Required. ID of Project
+					hypervideoID 	=	string 	// Required. The hypervideo
+					[annotationfileID =	string 	// Partly-Required. id of annotationfile. just needed on action = save.]
+					action 		=	string 	// Required. "save" or "saveAs"
+					name 		=	string 	// Required. name of annotation
+					description 	=	string 	// Required. description of annotation
+					hidden 		=	string 	// Required. "true" or "false"
+					src 		=	JSON-String // Required.
+
+			Returning Code:
+					0		=	Success. File has been written
+					1		=	failed. Not logged in to the projectID.
+					2		=	failed. User not active
+					3		=	failed. Could not find the annotations folder
+					4		=	failed. action not correct! "save" or "saveAs"
+					5		=	failed. Name (min 3 chars) or Description have not been submitted.
+					6		=	failed. Just on Save - Annotation with $id has not been found. (in DB or as file)
+					7		=	Permission denied. Just on Save. You are not the annotations owner and no administrator!
+
+		</pre>
+		<div id="annotationfileSave_loginstate"></div>
+		<form id="annotationfileSave_form" method="post">
+			<select class="project_select" name="projectID" size="10" id="annotationfileSave_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select>
+			<select name="hypervideoID" size="10" id="annotationfileSave_hypervideoID">
+				<option value="" selected disabled>Select a Hypervideo</option>
+			</select>
+			<select name="annotationfileID" size="10" id="annotationfileSave_annotationfileID">
+				<option value="" selected>Select a annotationfile or leave blank</option>
+			</select><br>
+			<select name="action" size="2" id="annotationfileSave_action">
+				<option value="save">save</option>
+				<option value="saveAs">saveAs</option>
+			</select><br>
+			<input type="text" name="name" id="annotationfileSave_name" placeholder="name"><br>
+			<input type="text" name="description" id="annotationfileSave_description" placeholder="description"><br>
+			<select name="hidden" size="2" id="annotationfileSave_hidden">
+				<option value="true">true</option>
+				<option value="false">false</option>
+			</select><br>
+			<textarea name="src" style="width: 300px; height:90px;" id="annotationfileSave_src">
+			</textarea>
+
+			<input type="hidden" name="a" value="annotationfileSave"><br>
+			<input type="submit" value="Save Annotation">
+		</form>
+
+		<pre id="annotationfileSave_output"><code></code></pre>
+		<script type="text/javascript">
+			//var annotationfileSave_annotations = {};
+			var annotationfileSave_hypervideos;
+			$("#annotationfileSave_project").on("click", function(e) {
+				e.preventDefault();
+				var tmpProjectID = $("#annotationfileSave_project option:selected").val();
+				$("#annotationfileSave_hypervideoID").html('<option value="" selected disabled>Select a Hypervideo</option>');
+				$.ajax({
+					method:"POST",
+					url:"../_data/projects/"+tmpProjectID+"/hypervideos/_index.json",
+					success: function(ret) {
+						if (!"hypervideos" in ret) {
+							return;
+						}
+						for (var k in ret["hypervideos"]) {
+							$("#annotationfileSave_hypervideoID").append('<option value="'+k+'">'+ret["hypervideos"][k]["name"]+' (by '+ret["hypervideos"][k]["creator"]+')</option>');
+						}
+						annotationfileSave_hypervideos = ret;
+					}
+				});
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userCheckLogin","projectID":$("#annotationfileSave_project option:selected").val()},
+					success: function(ret) {
+						if (ret["code"] == 1) {
+							$("#annotationfileSave_loginstate").html("You are logged in as <b>"+ret["response"]["name"]+"</b> ("+ret["response"]["mail"]+") with role <b>"+ret["response"]["role"]+"</b> and you are <b>"+((ret["response"]["active"]) ? "active" : "inactive")+"</b>");
+						} else {
+							$("#annotationfileSave_loginstate").html("You are <b>not logged in</b> to the project");
+						}
+					}
+				});
+			});
+
+			$("#annotationfileSave_hypervideoID").on("click", function() {
+				$("#annotationfileSave_annotationfileID").html('<option value="" selected>Select an annotationfile or leave blank (for saveAs)</option>');
+				var tmpHVID = $("#annotationfileSave_hypervideoID option:selected").val();
+
+				for (var k in annotationfileSave_hypervideos["hypervideos"][tmpHVID]["annotationfiles"]) {
+					$("#annotationfileSave_annotationfileID").append("<option value='"+k+"'>"+annotationfileSave_hypervideos["hypervideos"][tmpHVID]["annotationfiles"][k]["name"]+"</option>");
+				}
+			});
+
+			$("#annotationfileSave_form").on("click", "#annotationfileSave_annotationfileID", function() {
+				$("#annotationfileSave_action option").prop("selected",false).removeAttr("selected");
+
+				var tmpAnnotation = annotationfileSave_hypervideos["hypervideos"][$("#annotationfileSave_hypervideoID option:selected").val()]["annotationfiles"][$("#annotationfileSave_annotationfileID option:selected").val()];
+				$("#annotationfileSave_name").val(tmpAnnotation["name"]);
+				$("#annotationfileSave_description").val(tmpAnnotation["description"]);
+				$("#annotationfileSave_hidden option[value='"+tmpAnnotation["hidden"]+"']").prop("selected",true).attr("selected","selected");
+				$.ajax({
+					method:"POST",
+					url:"../_data/projects/"+$("#annotationfileSave_project option:selected").val()+"/hypervideos/"+$("#annotationfileSave_hypervideoID option:selected").val()+"/annotationfiles/"+$("#annotationfileSave_annotationfileID option:selected").val()+".json",
+					dataType: "text",
+					success: function(ret) {
+						$("#annotationfileSave_src").val(ret);
+					}
+				});
+			});
+
+			$("#annotationfileSave_form").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#annotationfileSave_output code").text(ret);
+					hljs.highlightBlock($("#annotationfileSave_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+	<div id="tab-annotationfileDelete" class="block">
+		<h2>Delete Annotationfile</h2>
+		<pre>
+			url:		/_server/ajaxServer.php<br>
+			parameter:
+					a 		=	"annotationfileDelete"
+					projectID 	=	number 	// Required. ID of Project
+					hypervideoID 	=	string 	// Required. The hypervideoID
+					annotationfileID =	string 	// Required. id of annotationfile which shall be deleted
+
+			Returning Code:
+					0		=	Success. File has been written
+					1		=	failed. Not logged in to the projectID.
+					2		=	failed. User not active
+					3		=	failed. Could not find the annotations folder
+					4		=	failed. Annotationfile is Main-file and cant be deleted.
+					5		=	failed. Annotation with id=$annotationfileID has not been found.
+					7		=	Permission denied. Permission denied. You are not the annotations owner and no administrator!
+
+		</pre>
+		<div id="annotationfileDelete_loginstate"></div>
+		<form id="annotationfileDelete_form" method="post">
+			<select class="project_select" name="projectID" size="10" id="annotationfileDelete_project">
+				<option value="" selected disabled>Select a Project</option>
+			</select>
+			<select name="hypervideoID" size="10" id="annotationfileDelete_hypervideoID">
+				<option value="" selected disabled>Select a Hypervideo</option>
+			</select>
+			<select name="annotationfileID" size="10" id="annotationfileDelete_annotationfileID">
+				<option value="" selected>Select a annotationfile or leave blank</option>
+			</select>
+			<input type="hidden" name="a" value="annotationfileDelete"><br>
+			<input type="submit" value="Delete Annotation">
+		</form>
+
+		<pre id="annotationfileDelete_output"><code></code></pre>
+		<script type="text/javascript">
+			//var annotationfileSave_annotations = {};
+			var annotationfileDelete_hypervideos;
+			$("#annotationfileDelete_project").on("click", function(e) {
+				e.preventDefault();
+				var tmpProjectID = $("#annotationfileDelete_project option:selected").val();
+				$("#annotationfileDelete_hypervideoID").html('<option value="" selected disabled>Select a Hypervideo</option>');
+				$.ajax({
+					method:"POST",
+					url:"../_data/projects/"+tmpProjectID+"/hypervideos/_index.json",
+					success: function(ret) {
+						if (!"hypervideos" in ret) {
+							return;
+						}
+						for (var k in ret["hypervideos"]) {
+							$("#annotationfileDelete_hypervideoID").append('<option value="'+k+'">'+ret["hypervideos"][k]["name"]+' (by '+ret["hypervideos"][k]["creator"]+')</option>');
+						}
+						annotationfileDelete_hypervideos = ret;
+					}
+				});
+				$.ajax({
+					method:"POST",
+					url: "ajaxServer.php",
+					data:{"a":"userCheckLogin","projectID":$("#annotationfileDelete_project option:selected").val()},
+					success: function(ret) {
+						if (ret["code"] == 1) {
+							$("#annotationfileDelete_loginstate").html("You are logged in as <b>"+ret["response"]["name"]+"</b> ("+ret["response"]["mail"]+") with role <b>"+ret["response"]["role"]+"</b> and you are <b>"+((ret["response"]["active"]) ? "active" : "inactive")+"</b>");
+						} else {
+							$("#annotationfileDelete_loginstate").html("You are <b>not logged in</b> to the project");
+						}
+					}
+				});
+			});
+
+			$("#annotationfileDelete_hypervideoID").on("click", function() {
+				$("#annotationfileDelete_annotationfileID").html('<option value="" selected>Select an annotationfile</option>');
+				var tmpHVID = $("#annotationfileDelete_hypervideoID option:selected").val();
+
+				for (var k in annotationfileDelete_hypervideos["hypervideos"][tmpHVID]["annotationfiles"]) {
+					$("#annotationfileDelete_annotationfileID").append("<option value='"+k+"'>"+annotationfileDelete_hypervideos["hypervideos"][tmpHVID]["annotationfiles"][k]["name"]+"</option>");
+				}
+			});
+
+			$("#annotationfileDelete_form").ajaxForm({
+				method: "POST",
+				url: "ajaxServer.php",
+				dataType:"text",
+				success: function(ret) {
+					$("#annotationfileDelete_output code").text(ret);
+					hljs.highlightBlock($("#annotationfileDelete_output code")[0]);
+				}
+			});
+
+		</script>
+		<br>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$.ajax({
+			method:"POST",
+			url: "ajaxServer.php",
+			data:{"a":"projectsGet"},
+			success: function(ret) {
+				for (var tmp in ret["response"]["projects"]) {
+					$(".project_select").append("<option value='"+tmp+"'>"+ret["response"]["projects"][tmp]["name"]+"</option>");
+				}
+			}
+		});
+		$(".block").each(function() {
+			//$(this).hide();
+			var tmp = $(this).find("h2").first();
+			$("#menu").append("<div data-content='"+$(this).attr("id")+"' class='menuItem'>"+tmp.text()+"</div>");
+
+		});
+		$("#menu").on("click", ".menuItem", function() {
+			var tmpElem = $(".block#"+$(this).data("content"));
+			if ($(this).hasClass("active")) {
+				$(this).removeClass("active");
+				tmpElem.slideUp();
+			} else {
+				$(this).addClass("active");
+				tmpElem.show(function() {
+					$("html, body").animate({ scrollTop: tmpElem.offset()["top"]-70 }, function() {
+						tmpElem.effect("highlight");
+					});
+				});
+			}
+		});
+	});
+</script>

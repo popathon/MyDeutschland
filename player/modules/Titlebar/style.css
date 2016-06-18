@@ -1,0 +1,108 @@
+#Titlebar {
+	position: absolute;
+	top: 0;
+	background: #2F323A;
+	height: 40px;
+	width: 100%;
+	padding: 0;
+	z-index: 99;
+	font-weight: 200;
+	/*
+	-webkit-transition: all 200ms linear;
+	-moz-transition: all 200ms linear;
+	-o-transition: all 200ms linear;
+	transition: all 200ms linear;
+	*/
+}
+
+#Titlebar.sidebarOpen {
+	box-shadow: 202px 0 2px 1px #000;
+}
+
+#Titlebar.sidebarOpen.editActive {
+	box-shadow: none;
+}
+
+#Titlebar.editActive {
+	background: #E0E3E6;
+}
+
+#Titlebar button {
+	width: 40px;
+	height: 40px;
+	border: none;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-size: 30px auto;
+	background-position: center;
+	cursor: pointer;
+	font-size: 0px;
+}
+
+#Titlebar #SidebarToggleWidget {
+	float: left;
+	background-color: transparent;
+}
+
+#Titlebar #SidebarToggleWidget.sidebarActive {
+	background-color: #2F323A;
+}
+
+#Titlebar.editActive #SidebarToggleWidget.sidebarActive {
+	background-color: #e0e3e6;
+}
+
+#Titlebar #SidebarToggleWidget button {
+	background-image: url("icons/sidebarToggle.png");
+}
+
+
+#Titlebar.editActive #SidebarToggleWidget button {
+	background-image: url("icons/sidebarToggle.edit.png");
+}
+
+#Titlebar #SidebarToggleWidget.unsavedChanges:after {
+	content: "*";
+	top: 4px;
+	right: 10px;
+	color: #FF9900;
+	font-weight: bold;
+	font-size: 20px;
+	padding-right: 6px;
+}
+
+#Titlebar #TitlebarTitle {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	text-align: center;
+	color: #fff;
+	line-height: 38px;
+	z-index: -1;
+}
+
+#Titlebar.editActive #TitlebarTitle {
+	color: #2f323a;
+}
+
+#Titlebar #SharingWidget {
+	float: right;
+}
+
+#Titlebar #SharingWidget button {
+	background-image: url("icons/share.png");
+}
+
+#Titlebar.editActive #SharingWidget button {
+	background-image: url("icons/share.edit.png");
+}
+
+#Titlebar #LogoutButton {
+	float: right;
+	background-image: url("icons/logout.png");
+}
+
+#Titlebar.editActive #LogoutButton {
+	background-image: url("icons/logout.edit.png");
+}

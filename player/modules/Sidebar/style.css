@@ -1,0 +1,303 @@
+#Sidebar {
+	position: absolute;
+	left: -200px;
+	top: 0px;
+	width: 200px;
+	height: 100%;
+	background-color: #2F323A;
+	color: #cececb;
+	font-weight: 100;
+	z-index: 2;
+	box-shadow: 0 0 2px 1px #000;
+	-webkit-transition: left 200ms linear; /* Firefox */
+	-moz-transition: left 200ms linear; /* WebKit */
+	-o-transition: left 200ms linear; /* Opera */
+	transition: left 200ms linear; /* Standard */
+}
+
+#Sidebar.open {
+	box-shadow: 0 0 2px 1px #000;
+	left: 0px;
+}
+
+#Sidebar.editActive {
+	background-color: #e0e3e6;
+	color: #2F323A;
+	box-shadow: none;
+	border-right: 1px solid #999;
+}
+
+#SidebarViewMode {
+	margin-top: 40px;
+	padding-bottom: 10px;
+}
+
+ #SidebarViewMode button {
+	display: block;
+	position: relative;
+	width: 100%;
+	padding: 10px 6px 10px 41px;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: 7px center;
+	background-size: 24px auto;
+	border-top: none;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px solid #696966;
+	color: #cececb;
+	opacity: .7;
+}
+
+#Sidebar.editActive #SidebarViewMode button, .viewmodeControls button.editMode {
+	display: block;
+	position: relative;
+	width: 100%;
+	padding: 10px 6px 10px 41px;
+	background-color: transparent;
+	background-repeat: no-repeat;
+	background-position: 7px center;
+	background-size: 24px auto;
+	border-top: 1px solid transparent;
+	border-left: none;
+	border-right: none;
+	border-bottom: 1px solid transparent;
+	color: #2F323A;
+	opacity: .7;
+}
+
+#Sidebar #SidebarViewMode button[data-viewmode="overview"] {
+	background-image: url('icons/menuItemOverview.png');
+}
+
+#Sidebar.editActive #SidebarViewMode button[data-viewmode="overview"] {
+	background-image: url('icons/menuItemOverview.dark.png');
+}
+
+#Sidebar #SidebarViewMode button[data-viewmode="video"] {
+	background-image: url('icons/menuItemHypervideo.png');
+}
+
+#Sidebar.editActive #SidebarViewMode button[data-viewmode="video"] {
+	background-image: url('icons/menuItemHypervideo.dark.png');
+}
+
+.viewmodeControls button.editMode[data-editmode="preview"] {
+	background-image: url('icons/menuItemPreview.dark.png');
+}
+
+.viewmodeControls button.editMode[data-editmode="overlays"], #EditPropertiesContainer[data-editmode="overlays"] {
+	background-image: url('icons/menuItemOverlays.dark.png');
+}
+
+.viewmodeControls button.editMode[data-editmode="links"], #EditPropertiesContainer[data-editmode="links"] {
+	background-image: url('icons/menuItemVideolinks.dark.png');
+}
+
+.viewmodeControls button.editMode[data-editmode="codesnippets"], #EditPropertiesContainer[data-editmode="codesnippets"] {
+	background-image: url('icons/menuItemCodeSnippets.dark.png');
+}
+
+.viewmodeControls button.editMode[data-editmode="annotations"], #EditPropertiesContainer[data-editmode="annotations"] {
+	background-image: url('icons/menuItemAnnotations.dark.png');
+}
+
+#SidebarViewMode button.unsavedChanges:before {
+	content: "*";
+	position: absolute;
+	top: 6px;
+	right: 10px;
+	color: #FF9900;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+
+#SidebarContainer .viewmodeControls button.editMode  {
+	display: none;
+}
+
+#SidebarContainer .viewmodeControls button.editMode.inEditMode  {
+	display: block;
+}
+
+#SidebarContainer .viewmodeControls button.editMode.disabled  {
+	pointer-events: none;
+	opacity: .4;
+}
+
+#SidebarContainer .viewmodeControls button.editMode.unsavedChanges:before {
+	content: "*";
+	position: absolute;
+	top: 6px;
+	right: 10px;
+	color: #FF9900;
+	font-weight: bold;
+	font-size: 20px;
+}
+
+#SidebarViewMode button:hover, .viewmodeControls button.editMode:hover {
+	opacity: 1;
+}
+
+
+#SidebarViewMode button.active {
+	background-color: transparent;
+	color: #fff;
+	opacity: 1;
+}
+
+#Sidebar.editActive #SidebarViewMode button.active, .viewmodeControls button.editMode.active {
+	background-color: #F8F8F8;
+	border-color: #999;
+	opacity: 1;
+	pointer-events: none;
+}
+
+#Sidebar.editActive #SidebarViewMode button.active:after, .viewmodeControls button.editMode.active:after {
+	content: "";
+	position: absolute;
+	top: 0px;
+	right: -2px;
+	width: 2px;
+	height: 100%;
+	background: #F8F8F8;
+}
+
+
+#SidebarContainer {
+	display: block;
+}
+
+#SidebarContainer > div {
+	display: none;
+}
+
+#SidebarContainer > div.active {
+	display: block;
+}
+
+#SidebarContainer .viewmodeInfo {
+	padding: 10px;
+	overflow: auto;
+}
+
+#SidebarContainer .descriptionLabel {
+	margin-top: 10px;
+	color: #919497;
+}
+
+#Sidebar.editActive #SidebarContainer .descriptionLabel {
+	color: #777;
+}
+
+#SidebarContainer .descriptionDates {
+	display: none;
+}
+
+#Sidebar.editActive #SidebarContainer .descriptionDates {
+	/*display: block;*/
+}
+
+#SidebarContainer .viewmodeControls {
+	position: absolute;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+}
+
+#SidebarContainer .viewmodeControls .viewModeActionButtonContainer {
+	padding: 10px;
+	/*border-bottom: 1px solid #a8a8a8;*/
+}
+
+#SidebarContainer .viewmodeControls .viewModeActionButtonContainer button {
+	float: left;
+	height: 40px;
+    margin-right: 8px;
+    width: 40px;
+	border: 2px solid #F8F8F8;
+	border-radius: 50%;
+	background-color: transparent;
+	background-size: 18px auto;
+	background-position: center;
+	background-repeat: no-repeat;
+	font-size: 0px;
+}
+
+#Sidebar.editActive #SidebarContainer .viewmodeControls .viewModeActionButtonContainer button {
+	border-color: #2F323A;
+}
+
+#SidebarContainer .viewmodeControls .viewModeActionButtonContainer button.unsavedChanges {
+	border-color: #FF9900 !important;
+	background-color: rgba(255, 153, 0, .15);
+}
+
+#SidebarContainer .viewmodeControls .startEditButton {
+	background-image: url("icons/edit.start.png");
+}
+
+#SidebarContainer .viewmodeControls .viewModeActionButtonContainer .leaveEditModeButton {
+	background-size: 26px auto;
+	background-image: url("icons/edit.stop.png");
+	background-color: #F8F8F8;
+}
+
+#SidebarContainer .viewmodeControls .saveButton {
+	background-image: url("icons/save.png");
+}
+
+#SidebarContainer .viewmodeControls .exportButton {
+	background-image: url("icons/export_light.png");
+	display: none;
+}
+
+#Sidebar.editActive #SidebarContainer .viewmodeControls .exportButton {
+	background-image: url("icons/export.png");
+}
+
+#SidebarContainer .viewmodeControls .viewModeActionButtonContainer .userSettingsButton {
+	float: right;
+	margin-right: 0px;
+	background-size: 100%;
+	background-image: url("icons/user_dark.png");
+	background-color: #ffffff;
+}
+
+#Sidebar.editActive #SidebarContainer .viewmodeControls .userSettingsButton {
+	background-image: url("icons/user.png");
+	background-color: #2F323A;
+}
+
+#SidebarContainer #SelectAnnotationContainer {
+	margin: 0px 10px 10px 10px;
+}
+
+#SidebarContainer #SelectAnnotationContainer #SelectAnnotation-button {
+	margin-top: 6px;
+	border-width: 2px;
+	border-color: #d1d1d1;
+}
+
+#SidebarContainer #SelectAnnotationContainer #SelectAnnotation-button:hover {
+	border-color: #F8F8F8;
+}
+
+#SidebarContainer #SelectAnnotationContainer #SelectAnnotation {
+	width: 178px;
+}
+
+#SidebarContainer #SelectAnnotationContainer .ui-menu-item {
+	padding-left: 5px;
+}
+
+#SidebarContainer #SelectAnnotationContainer .color-square {
+	background-image: url("icons/user.png");
+    background-position: center center;
+    background-size: 18px auto;
+    float: left;
+    height: 10px;
+    margin: 5px 5px 0 0;
+    width: 10px;
+}

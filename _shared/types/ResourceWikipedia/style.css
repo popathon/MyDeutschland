@@ -1,0 +1,23 @@
+.resourceDetail[data-type="wikipedia"] {
+	
+}
+
+.resourceThumb[data-type="wikipedia"] {
+	background-image: url("icons/resourceThumb.png");
+}
+
+.resourceThumb[data-type="wikipedia"] .resourceOverlay .resourceIcon {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Annotation Tile */
+
+.tileElement[data-type="wikipedia"] {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Edit Wikipedia Overlay Properties */
+
+#EditPropertiesContainer .propertiesTypeIcon[data-type="wikipedia"] {
+	background-image: url("icons/resourceIcon.png");
+}

@@ -1,0 +1,35 @@
+.resourceDetail[data-type="webpage"] {
+    
+}
+
+.resourceDetail[data-type="webpage"] iframe {
+	width: 133%;
+    height: 133%;
+    zoom: 0.75;
+    -moz-transform: scale(0.75);
+    -moz-transform-origin: 0 0;
+    -webkit-transform: scale(0.75);
+    -webkit-transform-origin: 0 0;
+    transform: scale(0.75);
+    transform-origin: 0 0;
+}
+
+.resourceThumb[data-type="webpage"] {
+    background-image: url("icons/resourceThumb.png");
+}
+
+.resourceThumb[data-type="webpage"] .resourceOverlay .resourceIcon {
+    background-image: url("icons/resourceIcon.png");
+}
+
+/* Annotation Tile */
+
+.tileElement[data-type="webpage"] {
+    background-image: url("icons/resourceIcon.png");
+}
+
+/* Edit Webpage Overlay Properties */
+
+#EditPropertiesContainer .propertiesTypeIcon[data-type="webpage"] {
+    background-image: url("icons/resourceIcon.png");
+}

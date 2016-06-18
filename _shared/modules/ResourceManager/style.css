@@ -1,0 +1,48 @@
+#ResourcePicker {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#ResourcePicker #ResourcePickerControls {
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+	background: rgba(248,248,248,.9);
+	padding: 10px 3px 3px 10px;
+	z-index: 1;
+}
+
+#ResourcePicker #ResourcePickerControls button {
+	background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 24px auto;
+    border: 2px solid #2f323a;
+    border-radius: 50%;
+    font-size: 0;
+    height: 40px;
+    width: 40px;
+}
+
+#ResourcePicker #ResourcePickerList {
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+
+#ResourcePicker #ResourcePickerList .resourceThumb {
+	float: left;
+	position: relative;
+	width: 120px;
+	height: 80px;
+	margin: 6px;
+}
+
+.resourceManagerIcon {
+	background-image: url('../../icons/resourceManager.png');
+}
+
+.addResourceIcon {
+	background-image: url('../../icons/resourceAdd.png');
+}

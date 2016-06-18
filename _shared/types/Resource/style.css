@@ -1,0 +1,247 @@
+.resourceDetail {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	background-size: 100% 100%;
+}
+
+/* Resource Thumb */
+
+.resourceThumb {
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	background-color: #929599;
+	cursor: pointer;
+}
+
+.resourceThumb.dragPlaceholder {
+	outline: 1px dashed #2F323A;
+	background: transparent;
+}
+
+.resourceThumb.dragPlaceholder .resourceOverlay, .resourceThumb.dragPlaceholder .resourceTitle {
+	opacity: .2;
+}
+
+.resourceThumb.ui-draggable-dragging {
+	outline: 1px solid #FF9919;
+}
+
+.resourceThumb.ui-draggable {
+	cursor: move;
+}
+
+.resourceThumb .resourceOverlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(111, 123, 129, 0.4);
+	background: -moz-radial-gradient(center, ellipse cover, rgba(86,94,110,0) 0%, rgba(86,94,110,0.7) 100%);
+	background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop(0%,rgba(86,94,110,0)), color-stop(100%,rgba(86,94,110,0.7)));
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(86,94,110,0) 0%,rgba(86,94,110,0.7) 100%);
+	background: -o-radial-gradient(center, ellipse cover, rgba(86,94,110,0) 0%,rgba(86,94,110,0.7) 100%);
+	background: -ms-radial-gradient(center, ellipse cover, rgba(86,94,110,0) 0%,rgba(86,94,110,0.7) 100%);
+	background: radial-gradient(ellipse at center, rgba(86,94,110,0) 0%,rgba(86,94,110,0.7) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00565e6e', endColorstr='#b3565e6e',GradientType=1 );
+}
+
+.resourceThumb .resourceOverlay .resourceIcon {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	width: 26px;
+	height: 16px;
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+}
+
+.resourceThumb .resourceTitle {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: auto;
+	background-color: rgba(80, 80, 80, 0.8);
+	font-size: 13px;
+	padding: 6px 5px 3px 5px;
+	color: #fff;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+.resourceThumb .resourcePreviewButton {
+	position: absolute;
+	bottom: 4px;
+	left: 4px;
+	z-index: 4;
+	background-image: url("icons/preview.png");
+	background-color: rgba(80, 80, 80, 0.8);
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 30px auto;
+    border: 2px solid #F8F8F8;
+    border-radius: 50%;
+    font-size: 0;
+    height: 28px;
+    width: 28px;
+    display: none;
+}
+
+.resourceThumb .resourcePreviewButton:hover {
+	background-color: #2F323A;
+}
+
+.resourceThumb:hover .resourcePreviewButton {
+	display: block;
+}
+
+.resourceThumb.ui-draggable-dragging .resourcePreviewButton, .resourceThumb.resourceAnimationDiv .resourcePreviewButton {
+	display: none;
+}
+
+/* Edit Overlay Properties */
+
+#EditPropertiesContainer #PreviewThumbContainer {
+	float: right;
+	height: 130px;
+	width: 200px;
+}
+
+#EditPropertiesContainer #PreviewThumbContainer .resourceThumb {
+	position: relative;
+	width: 100%;
+	height: 100%;
+}
+
+#EditPropertiesContainer .propertiesTypeIcon {
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: top left;
+    height: 28px;
+    margin-bottom: 2px;
+    width: 28px;
+}
+
+#EditPropertiesContainer .ui-spinner {
+	border: 1px solid #afafaf;
+    margin-right: 10px;
+    padding: 2px;
+    width: 53px;
+    background: #fff;
+}
+
+#EditPropertiesContainer .ui-spinner input {
+	width: 31px;
+	margin-top: 0px;
+	margin-bottom: 0px;
+	overflow: hidden;
+}
+
+#EditPropertiesContainer .ui-spinner .ui-spinner-button {
+	background-color: rgba(47, 50, 58, .7);
+	background-position: center;
+	background-size: 10px;
+	background-repeat: no-repeat;
+}
+
+#EditPropertiesContainer .ui-spinner:hover {
+	border-color: rgba(47, 50, 58, 1);
+}
+
+#EditPropertiesContainer .ui-spinner:hover .ui-spinner-button {
+	background-color: rgba(47, 50, 58, .8);
+}
+
+#EditPropertiesContainer .ui-spinner .ui-spinner-button:hover {
+	background-color: rgba(47, 50, 58, 1);
+	cursor: pointer;
+}
+
+#EditPropertiesContainer .ui-spinner .ui-spinner-button.ui-spinner-up {
+	background-image: url("icons/value.up.png");
+}
+
+#EditPropertiesContainer .ui-spinner .ui-spinner-button.ui-spinner-down {
+	background-image: url("icons/value.down.png");
+}
+
+#EditPropertiesContainer #TimeControls {
+	float: left;
+	width: 132px;
+	overflow: hidden;
+}
+
+#EditPropertiesContainer #TimeControls label, #EditPropertiesContainer #TimeControls .ui-spinner {
+	width: 120px;
+	margin-bottom: 0px;
+	display: block;
+}
+
+#EditPropertiesContainer #TimeControls .ui-spinner input {
+	width: 100px;
+	overflow: hidden;
+}
+
+#EditPropertiesContainer #PositionControls {
+	float: left;
+	position: relative;
+	margin-bottom: 10px;
+	width: 232px;
+	height: 130px;
+	background-image: url("icons/positionBackground.png");
+	background-repeat: no-repeat;
+	background-size: 100%;
+	background-position: center;
+	overflow: hidden;
+}
+
+#EditPropertiesContainer #PositionControls .ui-spinner[data-input-id="PositionTop"] {
+	left: 31%;
+    position: absolute;
+    top: 8%;
+}
+
+#EditPropertiesContainer #PositionControls .ui-spinner[data-input-id="PositionLeft"] {
+	left: 4%;
+    position: absolute;
+    top: 31.6%;
+}
+
+#EditPropertiesContainer #PositionControls .ui-spinner[data-input-id="PositionWidth"] {
+	left: 52%;
+    position: absolute;
+    top: 72%;
+}
+
+#EditPropertiesContainer #PositionControls .ui-spinner[data-input-id="PositionHeight"] {
+	left: 70%;
+    position: absolute;
+    top: 50%;
+}
+
+#EditPropertiesContainer #OpacitySlider {
+	margin: 10px 5px;
+	height: 6px;
+	background: #cfcfcf;
+}
+
+#EditPropertiesContainer #OpacitySlider .ui-slider-range {
+	background: rgba(47, 50, 58, .5);
+}
+
+#EditPropertiesContainer #OpacitySlider .ui-slider-handle {
+	background: #2F323A;
+	height: 14px;
+	width: 10px;
+	margin-left: -5px;
+}
+
+#EditPropertiesContainer textarea {
+	width: 348px;
+}

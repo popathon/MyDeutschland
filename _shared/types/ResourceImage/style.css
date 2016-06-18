@@ -1,0 +1,32 @@
+.resourceDetail[data-type="image"] {
+	
+}
+
+.resourceDetail[data-type="image"] img {
+	position: relative;
+	top: 0;
+	bottom: 0;
+	margin: auto;
+	width: 100%;
+	/*object-fit: contain;*/
+}
+
+.resourceThumb[data-type="image"] {
+	background-image: url("icons/resourceThumb.png");
+}
+
+.resourceThumb[data-type="image"] .resourceOverlay .resourceIcon {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Annotation Tile */
+
+.tileElement[data-type="image"] {
+	background-image: url("icons/resourceIcon.png");
+}
+
+/* Edit Image Overlay Properties */
+
+#EditPropertiesContainer .propertiesTypeIcon[data-type="image"] {
+	background-image: url("icons/resourceIcon.png");
+}

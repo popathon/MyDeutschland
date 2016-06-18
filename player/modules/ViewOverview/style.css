@@ -1,0 +1,127 @@
+#ViewOverview {
+	display: none;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+#ViewOverview.active {
+	display: block;
+}
+
+#MainContainer.editActive #ViewOverview {
+	border: 10px solid #f8f8f8;
+	box-sizing: border-box;
+}
+
+#ViewOverview #OverviewControls {
+	width: 100%;
+	height: 55px;
+	background: #f8f8f8;
+	box-shadow: 0 0 1px 2px #000;
+	/*border-top: 1px solid #999;*/
+}
+
+#ViewOverview #OverviewControls button {
+	float: left;
+	margin: 4px 14px 14px 14px;
+	background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 24px auto;
+    border: 2px solid #2f323a;
+    border-radius: 50%;
+    font-size: 0;
+    height: 40px;
+    width: 40px;
+}
+
+#ViewOverview #OverviewControls button#NewHypervideoButton {
+	background-image: url('icons/hypervideoAdd.png');
+}
+
+#ViewOverview #OverviewControls button#ManageResourcesButton {
+	margin-left: 0px;
+}
+
+#ViewOverview #OverviewList {
+	position: relative;
+	overflow: hidden;
+	width: 100%;
+}
+
+#ViewOverview #OverviewList .hypervideoThumb {
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	-o-transition-property: all;
+	transition-property: all;
+}
+
+.hypervideoData {
+	float: left;
+	width: 200px;
+}
+
+.hypervideoLayout {
+	float: left;
+	width: 328px;
+}
+
+#NewHypervideoDialog .message.error {
+	position: absolute;
+}
+
+#NewHypervideoDialog #UploadNewVideoResource {
+	position: absolute;
+	right: 0px;
+	top: 6px;
+}
+
+#EditHypervideoDialog .message {
+	margin-top: 10px;
+}
+
+/* Subtitles Settings */
+
+.subtitlesSettingsWrapper {
+
+}
+
+.subtitlesSettingsWrapper #SubtitlesPlus,  .subtitlesSettingsWrapper .subtitlesRemove, .subtitlesSettingsWrapper .subtitlesDelete {
+	padding: 0 2px;
+	font-size: 12px;
+	min-width: 24px;
+	margin-left: 8px;
+	text-align: center;
+}
+
+.subtitlesSettingsWrapper .subtitlesItem, .subtitlesSettingsWrapper .existingSubtitlesItem {
+	margin: 4px 0;
+	display: block;
+}
+
+.subtitlesSettingsWrapper .subtitlesItem, .subtitlesSettingsWrapper .existingSubtitlesItem > span {
+	font-size: 12px;
+	padding: 0 2px;
+}
+
+.subtitlesSettingsWrapper .existingSubtitlesItem > span {
+	color: #f8f8f8;
+	background: #2F323A;
+	border: 3px solid #2f323a;
+	display: inline-block;
+    width: 120px;
+}
+
+.subtitlesSettingsWrapper .subtitlesItem .subtitlesTmpKeySetter {
+	width: 85px;
+	padding: 0;
+	margin-right: 6px;
+}
+
+.subtitlesSettingsWrapper .subtitlesItem input[type="file"] {
+	width: 200px;
+}

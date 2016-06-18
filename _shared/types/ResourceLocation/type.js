@@ -1,0 +1,146 @@
+/**
+ * @module Shared
+ */
+
+
+/**
+ * I am the type definition of a ResourceLocation. I represent a geo map from OpenStreetMap (OSM).
+ *
+ * @class ResourceLocation
+ * @category TypeDefinition
+ * @extends Resource
+ */
+
+
+
+FrameTrail.defineType(
+
+    'ResourceLocation',
+    'Resource',
+
+    function(resourceData){
+
+        this.resourceData = resourceData;
+
+
+
+    },
+
+    {
+        /**
+         * I hold the data object of a ResourceLocation, which is stored in the {{#crossLink "Database"}}Database{{/crossLink}} and saved in the resource's _index.json.
+         * @attribute resourceData
+         * @type {}
+         */
+        resourceData:   {},
+
+
+        /**
+         * I render the content of myself, which is a &lt;div&gt; containing an OpenStreetMap (OSM) wrapped in a &lt;div class="resourceDetail" ...&gt;
+         *
+         * @method renderContent
+         * @return HTMLElement
+         */
+        renderContent: function() {
+
+            var self = this;
+
+            var resourceDetail = $('<div class="resourceDetail" data-type="'+ this.resourceData.type +'" style="width: 100%; height: 100%;"></div>');
+            var map = new OpenLayers.Map({
+                div: resourceDetail[0],
+                autoUpdateSize: true
+            });
+            var layer = new OpenLayers.Layer.OSM("Simple OSM Map");
+
+            map.addLayer(layer);
+            map.setCenter(
+                new OpenLayers.LonLat(self.resourceData.attributes.lon, self.resourceData.attributes.lat).transform(
+                    new OpenLayers.Projection("EPSG:4326"),
+                    new OpenLayers.Projection("EPSG:900913"),
+                    map.getProjectionObject()
+                ), 17
+            );
+
+            if ( self.resourceData.attributes.boundingBox ) {
+                /*
+                map.zoomToExtent(
+                    new OpenLayers.Bounds(
+                        self.resourceData.attributes.boundingBox[0],
+                        self.resourceData.attributes.boundingBox[1],
+                        self.resourceData.attributes.boundingBox[2],
+                        self.resourceData.attributes.boundingBox[3]
+                    ).transform("EPSG:4326", "EPSG:900913"));
+                */
+            }
+
+            resourceDetail.data('map', map);
+
+        	return resourceDetail;
+
+        }, 
+
+        /**
+         * Several modules need me to render a thumb of myself.
+         *
+         * These thumbs have a special structure of HTMLElements, where several data-attributes carry the information needed by e.g. the {{#crossLink "ResourceManager"}}ResourceManager{{/crossLink}}.
+         *
+         * The id parameter is optional. If it is not passed, the Database tries to find the resource object in its storage.
+         *
+         * @method renderThumb
+         * @param {} id
+         * @return thumbElement
+         */
+        renderThumb: function(id) {
+
+            var trueID,
+                self = this;
+
+            if (!id) {
+                trueID = FrameTrail.module('Database').getIdOfResource(this.resourceData);
+            } else {
+                trueID = id;
+            }
+
+            var thumbBackground = (this.resourceData.thumb ? 
+                    'background-image: url('+ FrameTrail.module('RouteNavigation').getResourceURL(this.resourceData.thumb) +');' : '' );
+
+            var thumbElement = $('<div class="resourceThumb" data-resourceID="'+ trueID +'" data-type="'+ this.resourceData.type +'" style="'+ thumbBackground +'">'
+                + '                  <div class="resourceOverlay">'
+                + '                      <div class="resourceIcon"></div>'
+                + '                  </div>'
+                + '                  <div class="resourceTitle">'+ this.resourceData.name +'</div>'
+                + '              </div>');
+
+            var previewButton = $('<div class="resourcePreviewButton"></div>').click(function(evt) {
+                // call the openPreview method (defined in abstract type: Resource)
+                self.openPreview( $(this).parent() );
+                evt.stopPropagation();
+                evt.preventDefault();
+            });
+            thumbElement.append(previewButton);
+
+            return thumbElement;
+
+        },
+
+
+        /**
+         * See {{#crossLink "Resource/renderBasicPropertiesControls:method"}}Resource/renderBasicPropertiesControls(){{/crossLink}}
+         * @method renderPropertiesControls
+         * @param {Overlay} overlay
+         * @return &#123; controlsContainer: HTMLElement, changeStart: Function, changeEnd: Function, changeDimensions: Function &#125;
+         */
+        renderPropertiesControls: function(overlay) {
+
+            return this.renderBasicPropertiesControls(overlay);
+
+        }
+
+
+        
+
+
+
+    }
+
+);

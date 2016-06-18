@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head class="html5">
+    
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="cache-control" content="no-cache">
+        <meta http-equiv="Expires" content="-1">
+        
+        <title></title>
+
+
+        <script type="text/javascript" src="../_lib/jquery/jquery-1.10.1.min.js"></script>
+
+        <style type="text/css">
+        	#introPage {
+				width: 100%;
+				height: 100%;
+				background: rgba(255,255,255,1);
+				position: absolute;
+				left: 0px;
+				top: 0px;
+				z-index: 1000000;
+				text-align: center;
+				color: #fff;
+			}
+			#introPage #introContent {
+				width: 95%;
+				height: 90%;
+				position: absolute;
+				left: 2.5%;
+				top: 5%;
+				z-index: 2;
+				text-align: center;
+				color: #333;
+				cursor: pointer;
+			}
+			#introPage #introContent img {
+				width: 100%;
+				height: 100%;
+				background: #fff;
+				object-fit: contain;
+			}
+
+			#popupMessage {
+				position: absolute;
+				z-index: 999999;
+				bottom: 20px;
+				right: 30px;
+				overflow: hidden;
+				width: 400px;
+				background-image: url(skype-notification.png);
+				background-size: 100% auto;
+				background-repeat: no-repeat;
+				height: 0px;
+				-moz-transition: height 1s ease;
+			    -webkit-transition: height 1s ease;
+			    -o-transition: height 1s ease;
+			    transition: height 1s ease;
+			    cursor: pointer;
+			}
+
+			#popupMessage.active {
+				height: 113px;
+			}
+
+			#chatWindow {
+				position: absolute;
+				top: 10%;
+				width: 50%;
+				left: 25%;
+				height: 400px;
+				background-color: #00ff00;
+				z-index: 1000000;
+				outline: 2px solid #efefef;
+			}
+			#chatWindow #skypeVideo {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				background-color: #000;
+			}
+        </style>
+
+        <script type="text/javascript">
+
+            $(document).ready( function() {
+
+                $('#introContent img').click(function(evt) {
+                	$('#introPage').fadeOut(900);
+                });
+
+                $('#popupMessage').click(function(evt) {
+                	$(this).fadeOut();
+                	FrameTrail.module('HypervideoController').pause();
+
+                	$('#skypeVideo')[0].play();
+                	$('#chatWindow').show();
+                });
+
+            });
+
+        </script>
+
+        
+    </head>
+    <body>
+
+    	<div id="introPage">
+			<div id="introContent">
+				<img src="">
+			</div>
+		</div>
+
+		<div id="popupMessage"></div>
+
+		<div id="chatWindow">
+			<video id="skypeVideo" controls>
+				<source src="skype.mp4" type="video/mp4">
+                <source src="skype.webm" type="video/webm">
+			</video> 
+			
+		</div>
+
+    </body>
+</html>

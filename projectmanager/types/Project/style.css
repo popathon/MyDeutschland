@@ -1,0 +1,48 @@
+.projectThumb {
+	float: left;
+	width: 200px;
+	height: auto;
+	margin: 20px 20px 0 0;
+	padding: 10px;
+	border: 1px solid #999;
+	background: #f2f3f5;
+}
+
+.projectThumb .projectTitle {
+	height: 30px;
+	overflow: hidden;
+	margin-bottom: 10px;
+	color: #2F323A;
+}
+
+.projectThumb .projectDescription {
+	height: 80px;
+	overflow: auto;
+	font-size: 12px;
+}
+
+.projectThumb .projectsOptions {
+	margin-top: 14px;
+}
+
+.projectThumb .projectsOptions button {
+	float: left;
+	background-color: transparent;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 24px auto;
+    border: 2px solid #2F323A;
+    border-radius: 50%;
+    font-size: 0;
+    height: 40px;
+    width: 40px;
+    margin: 8px 8px 0 0;
+}
+
+.projectThumb .projectsOptions button.deleteButton {
+	background-image: url("icons/projectDelete.png");
+}
+
+.projectThumb .projectsOptions button.editButton {
+	background-image: url("icons/projectEdit.png");
+}
