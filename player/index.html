@@ -119,31 +119,6 @@
         <script type="text/javascript" src="./modules/ViewOverview/module.js"></script>
         <script type="text/javascript" src="./modules/ViewVideo/module.js"></script>
         
-
-
-        <script type="text/javascript">
-
-            $(document).ready( function() {
-
-                FrameTrail.start('PlayerLauncher', {
-
-                    loggedIn:           false,
-                    username:           '',
-                    viewMode:           'video',
-                    editMode:           false,
-                    slidePosition:      'middle',
-                    sidebarOpen:        false,
-                    fullscreen:         false,
-                    viewSize:           [0,0],
-                    unsavedChanges:     false
-
-
-                });
-
-            });
-
-        </script>
-
         <style type="text/css">
         	#introPage {
 				width: 100%;
@@ -165,13 +140,14 @@
 				z-index: 2;
 				text-align: center;
 				color: #333;
+				background-image: url(intro-1.jpg);
+				background-size: contain;
+				background-repeat: no-repeat;
+				background-position: center;
 				cursor: pointer;
 			}
-			#introPage #introContent img {
-				width: 100%;
-				height: 100%;
-				background: #fff;
-				object-fit: contain;
+			#introPage #introContent:hover {
+				background-image: url(intro-2.jpg);
 			}
 
 			#popupMessage {
@@ -198,19 +174,33 @@
 
 			#chatWindow {
 				position: absolute;
-				top: 10%;
-				width: 50%;
-				left: 25%;
-				height: 400px;
+				top: 2%;
+				width: 800px;
+				left: 50%;
+				margin-left: -400px;
+				height: auto;
 				background-color: #00ff00;
 				z-index: 1000000;
-				outline: 2px solid #efefef;
+				display: none;
 			}
 			#chatWindow #skypeVideo {
 				position: absolute;
-				width: 100%;
-				height: 100%;
+				top: 20px;
+				left: 20px;
+				width: 20%;
+				height:40%;
+				z-index: 2;
 				background-color: #000;
+			}
+			#chatWindow img {
+				position: absolute;
+				top: 0;
+				width: 100%;
+				left: 0;
+				height: auto;
+				background-color: transparent;
+				z-index: 6;
+				display: block;
 			}
         </style>
 
@@ -218,39 +208,59 @@
 
             $(document).ready( function() {
 
-                $('#introContent img').click(function(evt) {
+                $('#introContent').click(function(evt) {
                 	$('#introPage').fadeOut(900);
                 });
 
                 $('#popupMessage').click(function(evt) {
-                	$(this).fadeOut();
+                	$(this).removeClass('active');
                 	FrameTrail.module('HypervideoController').pause();
-
-                	$('#skypeVideo')[0].play();
+                	//$('#skypeVideo')[0].play();
                 	$('#chatWindow').show();
+                });
+
+                $('#chatWindow').click(function(evt) {
+                	$(this).fadeOut();
                 });
 
             });
 
         </script>
 
+        <script type="text/javascript">
+
+            $(document).ready( function() {
+
+                FrameTrail.start('PlayerLauncher', {
+
+                    loggedIn:           false,
+                    username:           '',
+                    viewMode:           'video',
+                    editMode:           false,
+                    slidePosition:      'middle',
+                    sidebarOpen:        false,
+                    fullscreen:         false,
+                    viewSize:           [0,0],
+                    unsavedChanges:     false
+
+
+                });
+
+            });
+
+        </script>
         
     </head>
     <body>
 
     	<div id="introPage">
-			<div id="introContent">
-			</div>
+			<div id="introContent"></div>
 		</div>
 
 		<div id="popupMessage"></div>
 
 		<div id="chatWindow">
-			<video id="skypeVideo" preload controls>
-				<source src="skype.webm" type="video/webm">
-				<source src="skype.mp4" type="video/mp4">
-			</video> 
-			<video id="webcamStream"/>
+			<img src="skype-app.png"/>
 		</div>
 
     </body>

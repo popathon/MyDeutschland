@@ -1,0 +1,45 @@
+{
+    "user-increment": 5,
+    "user": {
+        "2": {
+            "name": "joscha",
+            "mail": "joscha@frametrail.org",
+            "registrationDate": 1466241740,
+            "passwd": "4196fb05f2551d8a40915fa0b58ff23d",
+            "role": "admin",
+            "active": 1,
+            "lastLogin": 1466250084,
+            "color": "339966"
+        },
+        "3": {
+            "name": "mv",
+            "mail": "mvob@hotmail.fr",
+            "registrationDate": 1466245773,
+            "passwd": "272f69cded5969fb9952baf75271e690",
+            "role": "admin",
+            "active": 1,
+            "lastLogin": 1466268288,
+            "color": "597081"
+        },
+        "4": {
+            "name": "jj",
+            "mail": "vanillajj@gmx.de",
+            "registrationDate": 1466248045,
+            "passwd": "097c9bac86b9c33fc9ec7f3ef0eb12f5",
+            "role": "admin",
+            "active": 1,
+            "lastLogin": 1466268503,
+            "color": "16a09c"
+        },
+        "5": {
+            "name": "Philo",
+            "mail": "philo@popathon.org",
+            "registrationDate": 1466267716,
+            "passwd": "6258eac299f9e0c4f47c962b5f72cef7",
+            "role": "admin",
+            "active": 1,
+            "lastLogin": 1466268891,
+            "color": "cd4436"
+        }
+    }
+}

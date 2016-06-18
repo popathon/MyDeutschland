@@ -1,0 +1,60 @@
+[
+    {
+        "name": "Wating",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466267737148,
+        "type": "video",
+        "src": "2_1466243105_wating.webm",
+        "thumb": "2_1466243105_thumb_wating.png",
+        "start": 65.692840318112,
+        "end": 88.070384886036,
+        "resourceId": "2",
+        "attributes": {
+            "alternateVideoFile": "2_1466243105_wating.mp4"
+        }
+    },
+    {
+        "name": "Trailer",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466268440878,
+        "type": "youtube",
+        "src": "//www.youtube.com/embed/YyQAj3qIAsQ",
+        "thumb": "http://img.youtube.com/vi/YyQAj3qIAsQ/2.jpg",
+        "start": 0,
+        "end": 4,
+        "resourceId": "4",
+        "attributes": []
+    },
+    {
+        "name": "Mohammad",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466268444376,
+        "type": "video",
+        "src": "2_1466247174_mohammad.webm",
+        "thumb": "2_1466247174_thumb_mohammad.png",
+        "start": 39.152031644527,
+        "end": 43.152031644527,
+        "resourceId": "6",
+        "attributes": {
+            "alternateVideoFile": "2_1466247174_mohammad.mp4"
+        }
+    },
+    {
+        "name": "Guitar",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466268448138,
+        "type": "video",
+        "src": "3_1466247465_guitar.webm",
+        "thumb": "3_1466247465_thumb_guitar.png",
+        "start": 117.61,
+        "end": 121.61,
+        "resourceId": "7",
+        "attributes": {
+            "alternateVideoFile": "3_1466247465_guitar.mp4"
+        }
+    }
+]

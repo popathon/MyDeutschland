@@ -1,0 +1,61 @@
+[
+    {
+        "name": "Trailer",
+        "creator": "mv",
+        "creatorId": "3",
+        "created": 1466246118678,
+        "type": "youtube",
+        "src": "//www.youtube.com/embed/YyQAj3qIAsQ",
+        "thumb": "http://img.youtube.com/vi/YyQAj3qIAsQ/2.jpg",
+        "start": 15.860344602967,
+        "end": 20.247248429319,
+        "resourceId": "4",
+        "attributes": [],
+        "position": {
+            "top": 38.43085106383,
+            "left": 65.763471226492,
+            "width": 30.089820359281,
+            "height": 30.053191489362
+        }
+    },
+    {
+        "name": "Guitar",
+        "creator": "mv",
+        "creatorId": "3",
+        "created": 1466247475364,
+        "type": "video",
+        "src": "3_1466247465_guitar.webm",
+        "thumb": "3_1466247465_thumb_guitar.png",
+        "start": 3.58,
+        "end": 7.58,
+        "resourceId": "7",
+        "attributes": {
+            "alternateVideoFile": "3_1466247465_guitar.mp4"
+        },
+        "position": {
+            "top": 53.138298683978,
+            "left": 67.634728711522,
+            "width": 30,
+            "height": 30
+        }
+    },
+    {
+        "name": "Mohamed Cake",
+        "creator": "mv",
+        "creatorId": "3",
+        "created": 1466247767409,
+        "type": "image",
+        "src": "3_1466247553_mohamed-cake.jpg",
+        "thumb": "3_1466247553_thumb_mohamed-cake.png",
+        "start": 3.58,
+        "end": 7.58,
+        "resourceId": "9",
+        "attributes": [],
+        "position": {
+            "top": 12.306967697575,
+            "left": 39.451514215272,
+            "width": 24.960254372019,
+            "height": 46.045197740113
+        }
+    }
+]

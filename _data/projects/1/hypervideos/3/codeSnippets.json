@@ -1,0 +1,11 @@
+[
+    {
+        "name": "Custom Code Snippet",
+        "creator": "mv",
+        "creatorId": "3",
+        "created": 1466260545404,
+        "snippet": "$('#popupMessage').addClass('active');\nwindow.setTimeout(function(){$('#popupMessage').removeClass('active');},10000);",
+        "start": 67.84,
+        "attributes": []
+    }
+]

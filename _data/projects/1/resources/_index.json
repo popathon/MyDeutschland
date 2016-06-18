@@ -1,0 +1,324 @@
+{
+    "resources-increment": 30,
+    "resources": {
+        "2": {
+            "name": "Wating",
+            "creator": "joscha",
+            "creatorId": "2",
+            "created": 1466243105,
+            "description": null,
+            "src": "2_1466243105_wating.webm",
+            "attributes": {
+                "alternateVideoFile": "2_1466243105_wating.mp4"
+            },
+            "type": "video",
+            "thumb": "2_1466243105_thumb_wating.png"
+        },
+        "4": {
+            "name": "Trailer",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466246111,
+            "description": null,
+            "src": "//www.youtube.com/embed/YyQAj3qIAsQ",
+            "type": "youtube",
+            "attributes": [],
+            "thumb": "http://img.youtube.com/vi/YyQAj3qIAsQ/2.jpg"
+        },
+        "6": {
+            "name": "Mohammad",
+            "creator": "joscha",
+            "creatorId": "2",
+            "created": 1466247174,
+            "description": null,
+            "src": "2_1466247174_mohammad.webm",
+            "attributes": {
+                "alternateVideoFile": "2_1466247174_mohammad.mp4"
+            },
+            "type": "video",
+            "thumb": "2_1466247174_thumb_mohammad.png"
+        },
+        "7": {
+            "name": "Guitar",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466247465,
+            "description": null,
+            "src": "3_1466247465_guitar.webm",
+            "attributes": {
+                "alternateVideoFile": "3_1466247465_guitar.mp4"
+            },
+            "type": "video",
+            "thumb": "3_1466247465_thumb_guitar.png"
+        },
+        "8": {
+            "name": "Mohammad Teaser mit Untertitel",
+            "creator": "joscha",
+            "creatorId": "2",
+            "created": 1466247466,
+            "description": null,
+            "src": "2_1466247466_mohammad-teaser-mit-untertitel.webm",
+            "attributes": {
+                "alternateVideoFile": "2_1466247466_mohammad-teaser-mit-untertitel.mp4"
+            },
+            "type": "video",
+            "thumb": "2_1466247466_thumb_mohammad-teaser-mit-untertitel.png"
+        },
+        "9": {
+            "name": "Mohamed Cake",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466247553,
+            "description": null,
+            "src": "3_1466247553_mohamed-cake.jpg",
+            "type": "image",
+            "attributes": [],
+            "thumb": "3_1466247553_thumb_mohamed-cake.png"
+        },
+        "10": {
+            "name": "Mohammad Lama",
+            "creator": "joscha",
+            "creatorId": "2",
+            "created": 1466247569,
+            "description": null,
+            "src": "2_1466247569_mohammad-lama.webm",
+            "attributes": {
+                "alternateVideoFile": "2_1466247569_mohammad-lama.mp4"
+            },
+            "type": "video",
+            "thumb": "2_1466247569_thumb_mohammad-lama.png"
+        },
+        "11": {
+            "name": "Mohamed Fire",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466247611,
+            "description": null,
+            "src": "3_1466247611_mohamed-fire.jpg",
+            "type": "image",
+            "attributes": [],
+            "thumb": "3_1466247611_thumb_mohamed-fire.png"
+        },
+        "12": {
+            "name": "Mohamed  Bonfire",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466247643,
+            "description": null,
+            "src": "3_1466247643_mohamed-bonfire.jpg",
+            "type": "image",
+            "attributes": [],
+            "thumb": "3_1466247643_thumb_mohamed-bonfire.png"
+        },
+        "13": {
+            "name": "Mohammad Skype Interview 2",
+            "creator": "joscha",
+            "creatorId": "2",
+            "created": 1466247776,
+            "description": null,
+            "src": "2_1466247776_mohammad-skype-interview-2.webm",
+            "attributes": {
+                "alternateVideoFile": "2_1466247776_mohammad-skype-interview-2.mp4"
+            },
+            "type": "video",
+            "thumb": "2_1466247776_thumb_mohammad-skype-interview-2.png"
+        },
+        "14": {
+            "name": "Mohammad Skype Interview 1",
+            "creator": "joscha",
+            "creatorId": "2",
+            "created": 1466247802,
+            "description": null,
+            "src": "2_1466247802_mohammad-skype-interview-1.webm",
+            "attributes": {
+                "alternateVideoFile": "2_1466247802_mohammad-skype-interview-1.mp4"
+            },
+            "type": "video",
+            "thumb": "2_1466247802_thumb_mohammad-skype-interview-1.png"
+        },
+        "15": {
+            "name": "Preußisch Oldendorf",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466247872,
+            "description": null,
+            "type": "location",
+            "src": "",
+            "attributes": {
+                "lat": "52.3040233",
+                "lon": "8.5016377",
+                "boundingBox": [
+                    "52.2597126",
+                    "52.3667966",
+                    "8.4407342",
+                    "8.5677366"
+                ]
+            }
+        },
+        "16": {
+            "name": "Syrian Bus",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466247948,
+            "description": null,
+            "src": "http://i.telegraph.co.uk/multimedia/archive/03183/Syrian-Bus-CW6RYP_3183943b.jpg",
+            "type": "image",
+            "attributes": [],
+            "thumb": "http://i.telegraph.co.uk/multimedia/archive/03183/Syrian-Bus-CW6RYP_3183943b.jpg"
+        },
+        "17": {
+            "name": "Snow surfing in Bloudan",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466248079,
+            "description": null,
+            "src": "//www.youtube.com/embed/Ug8x4nGfi8E",
+            "type": "youtube",
+            "attributes": [],
+            "thumb": "http://img.youtube.com/vi/Ug8x4nGfi8E/2.jpg"
+        },
+        "18": {
+            "name": "Mohammad_BardaraRiver",
+            "creator": "jj",
+            "creatorId": "4",
+            "created": 1466248101,
+            "description": null,
+            "src": "4_1466248101_mohammadbardarariver.jpg",
+            "type": "image",
+            "attributes": [],
+            "thumb": "4_1466248101_thumb_mohammadbardarariver.png"
+        },
+        "19": {
+            "name": "Um Kalthoum ",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466248339,
+            "description": null,
+            "src": "//www.youtube.com/embed/j86QIyhzWe8",
+            "type": "youtube",
+            "attributes": [],
+            "thumb": "http://img.youtube.com/vi/j86QIyhzWe8/2.jpg"
+        },
+        "20": {
+            "name": "Flüchtlinge helfen",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466248473,
+            "description": null,
+            "src": "https://www.aktion-deutschland-hilft.de/de/hilfseinsaetze/fluechtlingshilfe-in-deutschland/",
+            "type": "webpage",
+            "attributes": [],
+            "thumb": null
+        },
+        "21": {
+            "name": "Story",
+            "creator": "jj",
+            "creatorId": "4",
+            "created": 1466248871,
+            "description": null,
+            "src": "4_1466248871_story.jpg",
+            "type": "image",
+            "attributes": [],
+            "thumb": "4_1466248871_thumb_story.png"
+        },
+        "22": {
+            "name": "Lübeckerzeitung",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466254449,
+            "description": null,
+            "src": "http://www.ln-online.de/Lokales/Segeberg/Neues-Fluechtlingsheim-mit-30-Plaetzen",
+            "type": "webpage",
+            "attributes": [],
+            "thumb": null
+        },
+        "23": {
+            "name": "Lübe2",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466254648,
+            "description": null,
+            "src": "http://www.ln-online.de/Lokales/Segeberg/Multikulturelles-Menue-Deutscher-Spargel-zu-persischem-Fladenbrot#Galerie",
+            "type": "webpage",
+            "attributes": [],
+            "thumb": null
+        },
+        "24": {
+            "name": "Fairuz",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466260506,
+            "description": null,
+            "src": "//www.youtube.com/embed/ljIif9HuzDQ",
+            "type": "youtube",
+            "attributes": [],
+            "thumb": "http://img.youtube.com/vi/ljIif9HuzDQ/2.jpg"
+        },
+        "25": {
+            "name": "Intro_Page1",
+            "creator": "jj",
+            "creatorId": "4",
+            "created": 1466263256,
+            "description": null,
+            "src": "4_1466263256_intropage1.jpg",
+            "type": "image",
+            "attributes": [],
+            "thumb": "4_1466263256_thumb_intropage1.png"
+        },
+        "26": {
+            "name": "Intro_Page2",
+            "creator": "jj",
+            "creatorId": "4",
+            "created": 1466263281,
+            "description": null,
+            "src": "4_1466263281_intropage2.jpg",
+            "type": "image",
+            "attributes": [],
+            "thumb": "4_1466263281_thumb_intropage2.png"
+        },
+        "27": {
+            "name": "Logo",
+            "creator": "jj",
+            "creatorId": "4",
+            "created": 1466263298,
+            "description": null,
+            "src": "4_1466263298_logo.png",
+            "type": "image",
+            "attributes": [],
+            "thumb": "4_1466263298_thumb_logo.png"
+        },
+        "28": {
+            "name": "Skypewindow",
+            "creator": "jj",
+            "creatorId": "4",
+            "created": 1466263895,
+            "description": null,
+            "src": "4_1466263895_skypewindow.png",
+            "type": "image",
+            "attributes": [],
+            "thumb": "4_1466263895_thumb_skypewindow.png"
+        },
+        "29": {
+            "name": "Fairuz",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466264034,
+            "description": null,
+            "src": "https://en.wikipedia.org/wiki/Fairuz",
+            "type": "wikipedia",
+            "attributes": [],
+            "thumb": null
+        },
+        "30": {
+            "name": "lama",
+            "creator": "mv",
+            "creatorId": "3",
+            "created": 1466265607,
+            "description": null,
+            "src": "https://translate.google.de/?oe=utf-8&client=firefox-b-ab&gfe_rd=cr&um=1&ie=UTF-8&hl=fr&client=tw-ob#en/ar/lama",
+            "type": "webpage",
+            "attributes": [],
+            "thumb": null
+        }
+    }
+}

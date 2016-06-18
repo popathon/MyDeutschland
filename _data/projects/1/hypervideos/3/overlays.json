@@ -1,0 +1,23 @@
+[
+    {
+        "name": "Logo",
+        "creator": "mv",
+        "creatorId": "3",
+        "created": 1466264331172,
+        "type": "image",
+        "src": "4_1466263298_logo.png",
+        "thumb": "4_1466263298_thumb_logo.png",
+        "start": 0,
+        "end": 550.3672818578,
+        "resourceId": "27",
+        "attributes": {
+            "opacity": 0.56
+        },
+        "position": {
+            "top": 3.9893617021277,
+            "left": 87.910452316056,
+            "width": 11.641791044776,
+            "height": 19.68085106383
+        }
+    }
+]

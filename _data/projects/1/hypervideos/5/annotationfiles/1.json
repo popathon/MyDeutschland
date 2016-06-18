@@ -1,0 +1,144 @@
+[
+    {
+        "name": "Fairuz",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466269067953,
+        "type": "youtube",
+        "src": "//www.youtube.com/embed/ljIif9HuzDQ",
+        "thumb": "http://img.youtube.com/vi/ljIif9HuzDQ/2.jpg",
+        "start": 8.1388400754098,
+        "end": 19.44278462459,
+        "resourceId": "24",
+        "attributes": []
+    },
+    {
+        "name": "Fairuz",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466269109367,
+        "type": "wikipedia",
+        "src": "https://en.wikipedia.org/wiki/Fairuz",
+        "thumb": null,
+        "start": 19.44278462459,
+        "end": 29.842413609836,
+        "resourceId": "29",
+        "attributes": []
+    },
+    {
+        "name": "Lübe2",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466269136749,
+        "type": "webpage",
+        "src": "http://www.ln-online.de/Lokales/Segeberg/Multikulturelles-Menue-Deutscher-Spargel-zu-persischem-Fladenbrot#Galerie",
+        "thumb": null,
+        "start": 51.086295239097,
+        "end": 62.390239788277,
+        "resourceId": "23",
+        "attributes": []
+    },
+    {
+        "name": "Mohammad Teaser mit Untertitel",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466269179953,
+        "type": "video",
+        "src": "2_1466247466_mohammad-teaser-mit-untertitel.webm",
+        "thumb": "2_1466247466_thumb_mohammad-teaser-mit-untertitel.png",
+        "start": 77.318980716393,
+        "end": 99.474712032787,
+        "resourceId": "8",
+        "attributes": {
+            "alternateVideoFile": "2_1466247466_mohammad-teaser-mit-untertitel.mp4"
+        }
+    },
+    {
+        "name": "Mohammad Lama",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466269212717,
+        "type": "video",
+        "src": "2_1466247569_mohammad-lama.webm",
+        "thumb": "2_1466247569_thumb_mohammad-lama.png",
+        "start": 111.6754380227,
+        "end": 128.40527595549,
+        "resourceId": "10",
+        "attributes": {
+            "alternateVideoFile": "2_1466247569_mohammad-lama.mp4"
+        }
+    },
+    {
+        "name": "Preußisch Oldendorf",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466269226827,
+        "type": "location",
+        "src": "",
+        "start": 132.03007233443,
+        "end": 141.9775435377,
+        "resourceId": "15",
+        "attributes": {
+            "lat": "52.3040233",
+            "lon": "8.5016377",
+            "boundingBox": [
+                "52.2597126",
+                "52.3667966",
+                "8.4407342",
+                "8.5677366"
+            ]
+        }
+    },
+    {
+        "name": "Story",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466269251397,
+        "type": "image",
+        "src": "4_1466248871_story.jpg",
+        "thumb": "4_1466248871_thumb_story.png",
+        "start": 152.38,
+        "end": 156.38,
+        "resourceId": "21",
+        "attributes": []
+    },
+    {
+        "name": "Mohammad_BardaraRiver",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466269255830,
+        "type": "image",
+        "src": "4_1466248101_mohammadbardarariver.jpg",
+        "thumb": "4_1466248101_thumb_mohammadbardarariver.png",
+        "start": 155.99443477869,
+        "end": 163.68111707213,
+        "resourceId": "18",
+        "attributes": []
+    },
+    {
+        "name": "Syrian Bus",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466269268957,
+        "type": "image",
+        "src": "http://i.telegraph.co.uk/multimedia/archive/03183/Syrian-Bus-CW6RYP_3183943b.jpg",
+        "thumb": "http://i.telegraph.co.uk/multimedia/archive/03183/Syrian-Bus-CW6RYP_3183943b.jpg",
+        "start": 163.68111707213,
+        "end": 169.5591682377,
+        "resourceId": "16",
+        "attributes": []
+    },
+    {
+        "name": "Mohamed Fire",
+        "creator": "Philo",
+        "creatorId": "5",
+        "created": 1466269293171,
+        "type": "image",
+        "src": "3_1466247611_mohamed-fire.jpg",
+        "thumb": "3_1466247611_thumb_mohamed-fire.png",
+        "start": 106.26,
+        "end": 110.26,
+        "resourceId": "11",
+        "attributes": []
+    }
+]

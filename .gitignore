@@ -24,4 +24,4 @@ pids
 *.mpg
 
 #data folder
-_data/
+#_data/
