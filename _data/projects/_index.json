@@ -1,8 +1,8 @@
 {
     "projects": {
         "1": {
-            "name": "Sample Project",
-            "description": "Trying out things",
+            "name": "#MyDeutschland",
+            "description": "#MyDeutschland builds upon the documentary film #MyEscape that used video produced by refugees on their smartphones and cameras during their journey to Germany.<br>The refugees featured in the documentary are continuing to document their new life in Germany in #MyDeutschland.<br>Viewers can select one of the refugee protagonists and watch the videos they produce. Viewers can also see when a refugee is online opening up possibilities for real time interaction such as video chats.<br><br>The prototype was created in 24 hrs during Popathon Hackjam Berlin.",
             "created": 1466241700,
             "userNeedsConfirmation": false,
             "defaultUserRole": "admin",

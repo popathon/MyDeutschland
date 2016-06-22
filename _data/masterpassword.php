@@ -1,1 +1,1 @@
-<?php $masterpassword = 'pop@thinbln'; // Needs to have 5 chars min. ?>
+<?php $masterpassword = 'pop@thonbln'; // Needs to have 5 chars min. ?>

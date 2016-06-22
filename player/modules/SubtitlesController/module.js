@@ -80,6 +80,10 @@ FrameTrail.defineModule('SubtitlesController', function(){
             ViewVideo.CaptionsButton.show();
             updateStatesOfSubtitles(FrameTrail.module('HypervideoController').currentTime);
 
+            // update state
+            var captionsVisible = FrameTrail.getState('hv_config_captionsVisible');
+            FrameTrail.changeState('hv_config_captionsVisible', captionsVisible);
+
         }
 
     };

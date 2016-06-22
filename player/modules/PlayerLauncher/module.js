@@ -75,6 +75,10 @@
 
                                 // Finished
                                 FrameTrail.module('InterfaceModal').hideMessage();
+
+                                // custom for mydeutschland
+                                mydeutschland();
+                                
                                 
                             },
 

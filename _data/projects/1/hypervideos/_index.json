@@ -1,137 +1,12 @@
 {
     "hypervideo-increment": 5,
     "hypervideos": {
-        "2": {
-            "name": "Waiting",
-            "description": "Mydeutschland Omar",
-            "thumb": "2_1466243105_thumb_wating.png",
-            "creator": "mv",
-            "creatorId": "3",
-            "created": 1466245895,
-            "lastchanged": 1466245895,
-            "hidden": false,
-            "config": {
-                "annotationsVisible": true,
-                "annotationsPosition": "bottom",
-                "annotationTimelineVisible": true,
-                "annotationPreviewVisible": false,
-                "videolinksVisible": true,
-                "videolinkTimelineVisible": true,
-                "overlaysVisible": true,
-                "slidingMode": "adjust",
-                "slidingTrigger": "key",
-                "theme": "CssClassName",
-                "autohideControls": true
-            },
-            "mainAnnotation": "1",
-            "annotationfiles": {
-                "1": {
-                    "name": "main",
-                    "description": "",
-                    "created": 1466245895,
-                    "lastchanged": 1466245895,
-                    "hidden": false,
-                    "owner": "mv",
-                    "ownerId": "3"
-                }
-            },
-            "annotation-increment": 1,
-            "subtitles": []
-        },
-        "3": {
-            "name": "Mohammad",
-            "description": " ",
-            "thumb": "2_1466247174_thumb_mohammad.png",
-            "creator": "mv",
-            "creatorId": "3",
-            "created": 1466248534,
-            "lastchanged": 1466248534,
-            "hidden": false,
-            "config": {
-                "annotationsVisible": true,
-                "annotationsPosition": "bottom",
-                "annotationTimelineVisible": true,
-                "annotationPreviewVisible": false,
-                "videolinksVisible": true,
-                "videolinkTimelineVisible": true,
-                "overlaysVisible": true,
-                "slidingMode": "adjust",
-                "slidingTrigger": "key",
-                "theme": "CssClassName",
-                "autohideControls": true
-            },
-            "mainAnnotation": "1",
-            "annotationfiles": {
-                "1": {
-                    "name": "main",
-                    "description": "",
-                    "created": 1466248534,
-                    "lastchanged": 1466248534,
-                    "hidden": false,
-                    "owner": "mv",
-                    "ownerId": "3"
-                },
-                "2": {
-                    "name": "Philo",
-                    "description": "Philo's annotations",
-                    "created": 1466267739,
-                    "lastchanged": 1466268449,
-                    "owner": "Philo",
-                    "ownerId": 5,
-                    "hidden": false
-                }
-            },
-            "annotation-increment": 2,
-            "subtitles": [
-                {
-                    "src": "en.vtt",
-                    "srclang": "en"
-                }
-            ]
-        },
-        "4": {
-            "name": "MYDEUTSCHLAND",
-            "description": "   ",
-            "thumb": null,
-            "creator": "mv",
-            "creatorId": "3",
-            "created": 1466253205,
-            "lastchanged": 1466253205,
-            "hidden": false,
-            "config": {
-                "annotationsVisible": false,
-                "annotationsPosition": "bottom",
-                "annotationTimelineVisible": true,
-                "annotationPreviewVisible": true,
-                "videolinksVisible": false,
-                "videolinkTimelineVisible": true,
-                "overlaysVisible": true,
-                "slidingMode": "adjust",
-                "slidingTrigger": "key",
-                "theme": "CssClassName",
-                "autohideControls": true
-            },
-            "mainAnnotation": "1",
-            "annotationfiles": {
-                "1": {
-                    "name": "main",
-                    "description": "",
-                    "created": 1466253205,
-                    "lastchanged": 1466253205,
-                    "hidden": false,
-                    "owner": "mv",
-                    "ownerId": "3"
-                }
-            },
-            "annotation-increment": 1,
-            "subtitles": []
-        },
         "5": {
-            "name": "Mohammad Popathon",
-            "description": " Mohammad by philos account",
+            "name": "#MyDeutschland",
+            "description": "#MyDeutschland builds upon the documentary film #MyEscape that used video produced by refugees on their smartphones and cameras during their journey to Germany.<br>The refugees featured in the documentary are continuing to document their new life in Germany in #MyDeutschland.<br>Viewers can select one of the refugee protagonists and watch the videos they produce. Viewers can also see when a refugee is online opening up possibilities for real time interaction such as video chats.<br><br>The prototype was created in 24 hrs during Popathon Hackjam Berlin.",
             "thumb": "2_1466247174_thumb_mohammad.png",
-            "creator": "Philo",
-            "creatorId": "5",
+            "creator": "Julia Jasjunas, Marie Villetelle, Guy Degen and Joscha Jäger",
+            "creatorId": "2",
             "created": 1466268810,
             "lastchanged": 1466268810,
             "hidden": false,
@@ -140,23 +15,24 @@
                 "annotationsPosition": "bottom",
                 "annotationTimelineVisible": true,
                 "annotationPreviewVisible": false,
-                "videolinksVisible": true,
-                "videolinkTimelineVisible": true,
+                "videolinksVisible": false,
+                "videolinkTimelineVisible": false,
                 "overlaysVisible": true,
                 "slidingMode": "adjust",
                 "slidingTrigger": "key",
                 "theme": "CssClassName",
-                "autohideControls": true
+                "autohideControls": true,
+                "captionsVisible": true
             },
             "mainAnnotation": "1",
             "annotationfiles": {
                 "1": {
-                    "name": "Philo",
-                    "description": "Philo's annotations",
+                    "name": "Annotations",
+                    "description": "Annotations",
                     "created": 1466268810,
                     "lastchanged": 1466269312,
-                    "owner": "Philo",
-                    "ownerId": 5,
+                    "owner": "Marie Villetelle",
+                    "ownerId": 2,
                     "hidden": false
                 }
             },

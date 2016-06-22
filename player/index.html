@@ -8,7 +8,19 @@
         
         <title></title>
 
+        <meta name="description" content="#MyDeutschland builds upon the documentary film #MyEscape that used video produced by refugees on their smartphones and cameras during their journey to Germany. The refugees featured in the documentary are continuing to document their new life in Germany in #MyDeutschland.">
+        <meta name="author" content="Joscha Jaeger">
+        <meta property="og:title" content="#MyDeutschland" />
+        <meta property="og:url" content="http://popathon.frametrail.org" />
+        <meta property="og:type" content="website" />
+        <meta property="og:image" content="http://popathon.frametrail.org/player/intro-2.jpg" />
+        <meta property="og:description" content="#MyDeutschland builds upon the documentary film #MyEscape that used video produced by refugees on their smartphones and cameras during their journey to Germany. The refugees featured in the documentary are continuing to document their new life in Germany in #MyDeutschland." />
 
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@OpenHypervideo">
+        <meta name="twitter:title" content="#MyDeutschland">
+        <meta name="twitter:description" content="#MyDeutschland builds upon the documentary film #MyEscape that used video produced by refugees on their smartphones and cameras during their journey to Germany. The refugees featured in the documentary are continuing to document their new life in Germany in #MyDeutschland.">
+        <meta name="twitter:image" content="http://popathon.frametrail.org/player/intro-2.jpg">
 
 
         <!-- Library Code -->
@@ -120,7 +132,23 @@
         <script type="text/javascript" src="./modules/ViewVideo/module.js"></script>
         
         <style type="text/css">
-        	#introPage {
+        	#Sidebar #SidebarViewMode button {
+                display: none !important;
+            }
+
+            #Sidebar.editActive #SidebarViewMode button {
+                display: block !important;
+            }
+
+            #HypervideoContainer #VideoContainer #Hypervideo #CaptionContainer {
+                background: rgba(0,0,0,.6);
+            }
+
+            #SharingWidgetButton {
+                display: none;
+            }
+
+            #introPage {
 				width: 100%;
 				height: 100%;
 				background: rgba(255,255,255,1);
@@ -130,6 +158,7 @@
 				z-index: 1000000;
 				text-align: center;
 				color: #fff;
+                display: none;
 			}
 			#introPage #introContent {
 				width: 95%;
@@ -224,6 +253,13 @@
                 });
 
             });
+
+            function mydeutschland() {
+                $('#MainContainer').append($('#introPage'), $('#popupMessage'), $('#chatWindow'));
+                $('#introPage').show();
+
+                //FrameTrail.changeState('hv_config_captionsVisible', true);
+            }
 
         </script>
 

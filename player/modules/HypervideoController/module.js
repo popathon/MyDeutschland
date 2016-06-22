@@ -85,8 +85,11 @@ FrameTrail.defineModule('HypervideoController', function(){
 
 			FrameTrail.changeState('videoWorking', true);
 
-			_video.append('<source src="../_data/projects/' + projectID + '/resources/' + HypervideoModel.sourceFiles.mp4  +'" type="video/mp4"></source>');
-			_video.append('<source src="../_data/projects/' + projectID + '/resources/' + HypervideoModel.sourceFiles.webm +'" type="video/webm"></source>');
+			if ( videoElement.canPlayType('video/webm; codecs="vp8, vorbis"').replace(/^no$/, '') || videoElement.canPlayType('video/webm; codecs="vp9"').replace(/^no$/, '') ) {
+				_video.append('<source src="../_data/projects/' + projectID + '/resources/' + HypervideoModel.sourceFiles.webm +'" type="video/webm"></source>');
+			} else {
+				_video.append('<source src="../_data/projects/' + projectID + '/resources/' + HypervideoModel.sourceFiles.mp4  +'" type="video/mp4"></source>');				
+			}
 
 			_video.on('play',  _play);
 			_video.on('pause', _pause);

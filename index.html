@@ -6,12 +6,26 @@
 	<meta http-equiv="cache-control" content="no-cache">
 	<meta http-equiv="Expires" content="-1">
 
-	<title>FrameTrail</title>
+	<title>#MyDeutschland</title>
 
 	<link rel="stylesheet" type="text/css" href="_lib/html5reset/html5.reset.css">
 	<link rel="stylesheet" type="text/css" href="_lib/jquery.ui/jquery-ui.min.css">
 
 	<link rel="shortcut icon" href="favico.png">
+	
+	<meta name="description" content="#MyDeutschland builds upon the documentary film #MyEscape that used video produced by refugees on their smartphones and cameras during their journey to Germany. The refugees featured in the documentary are continuing to document their new life in Germany in #MyDeutschland.">
+    <meta name="author" content="Joscha Jaeger">
+    <meta property="og:title" content="#MyDeutschland" />
+	<meta property="og:url" content="http://popathon.frametrail.org" />
+	<meta property="og:type" content="website" />
+	<meta property="og:image" content="http://popathon.frametrail.org/player/intro-2.jpg" />
+	<meta property="og:description" content="#MyDeutschland builds upon the documentary film #MyEscape that used video produced by refugees on their smartphones and cameras during their journey to Germany. The refugees featured in the documentary are continuing to document their new life in Germany in #MyDeutschland." />
+
+    <meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:site" content="@OpenHypervideo">
+	<meta name="twitter:title" content="#MyDeutschland">
+	<meta name="twitter:description" content="#MyDeutschland builds upon the documentary film #MyEscape that used video produced by refugees on their smartphones and cameras during their journey to Germany. The refugees featured in the documentary are continuing to document their new life in Germany in #MyDeutschland.">
+	<meta name="twitter:image" content="http://popathon.frametrail.org/player/intro-2.jpg">
 
 	<script type="text/javascript" src="_lib/jquery/jquery-1.10.1.min.js"></script>
 	<script type="text/javascript" src="_lib/jquery.form/jquery.form.min.js"></script>
@@ -60,7 +74,7 @@
 								} else {
 									for (var firstProjectID in data.projects) break;
 
-									var projectUrl = window.location.href + 'player/?project=' + firstProjectID;
+									var projectUrl = window.location.href.replace('index.html', '') + 'player/?project=' + firstProjectID + '&hypervideo=5';
 									window.location.replace(projectUrl);
 
 									/*

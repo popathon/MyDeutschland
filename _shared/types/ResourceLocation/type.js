@@ -58,7 +58,7 @@ FrameTrail.defineType(
                     new OpenLayers.Projection("EPSG:4326"),
                     new OpenLayers.Projection("EPSG:900913"),
                     map.getProjectionObject()
-                ), 17
+                ), 14
             );
 
             if ( self.resourceData.attributes.boundingBox ) {
